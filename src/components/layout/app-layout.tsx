@@ -4,7 +4,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation"; // Added useRouter
 import {
   SidebarProvider,
   Sidebar,
@@ -21,20 +21,31 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { navItems } from "@/config/site";
-import { LogOut } from "lucide-react"; 
+import { LogOut } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter(); // Added router
   const { toast } = useToast();
 
   const handleLogout = () => {
+    // In a real app, you'd clear auth tokens/state here
     toast({
-      title: "Logout Action",
-      description: "Logout functionality would be implemented here.",
+      title: "Logged Out",
+      description: "You have been successfully logged out.",
     });
-    console.log("Logout button clicked. Implement actual logout logic.");
+    router.push('/'); // Redirect to homepage after logout
+    console.log("Logout button clicked. Redirecting to homepage.");
   };
+
+  // Hide sidebar and app layout structure on public pages like home, login, signup
+  const publicPages = ['/', '/login', '/signup'];
+  const isPublicPage = publicPages.includes(pathname);
+
+  if (isPublicPage) {
+    return <main>{children}</main>; // Render only children for public pages
+  }
 
   return (
     <SidebarProvider defaultOpen={true}>
@@ -45,11 +56,10 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               <Image
                 src="/images/penny-pilot-logo.png"
                 alt="PennyPilot Logo"
-                width={120} 
-                height={40} 
+                width={120}
+                height={40}
                 className="h-8 w-auto group-data-[collapsible=icon]:h-7 group-data-[collapsible=icon]:w-7 group-data-[collapsible=icon]:object-contain"
                 data-ai-hint="compass finance"
-                
               />
             </Link>
           </SidebarHeader>
@@ -76,7 +86,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <SidebarFooter className="p-4">
             <div className="flex items-center gap-3 group-data-[collapsible=icon]:justify-center">
               <Avatar className="h-10 w-10 group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8">
-                <AvatarImage src="/images/penny-pilot-logo.png" alt="PennyPilot Logo" data-ai-hint="compass finance" />
+                <AvatarImage src="/images/penny-pilot-logo.png" alt="User Avatar" data-ai-hint="pilot coin" />
                 <AvatarFallback>PP</AvatarFallback>
               </Avatar>
               <div className="flex flex-col group-data-[collapsible=icon]:hidden">

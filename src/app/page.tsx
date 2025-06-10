@@ -1,180 +1,74 @@
 
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Progress } from "@/components/ui/progress";
-import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
-import { PieChart, Pie, Cell, Tooltip as RechartsTooltip } from 'recharts';
-import { DollarSign, TrendingUp, CreditCard } from 'lucide-react'; // Removed AlertCircle, Activity, Users as they are not used here after previous changes.
-import type { Transaction, Category } from '@/types';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
-const mockTransactions: Transaction[] = [
-  { id: '1', date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), description: 'Groceries', amount: -5662.50, category: 'Food', accountId: 'acc1' },
-  { id: '2', date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), description: 'Petrol', amount: -3000.00, category: 'Transportation', accountId: 'acc1' },
-  { id: '3', date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), description: 'Movie Tickets', amount: -2250.00, category: 'Entertainment', accountId: 'acc2' },
-  { id: '4', date: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(), description: 'Salary Deposit', amount: 187500.00, category: 'Income', accountId: 'acc1' },
-  { id: '5', date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), description: 'Restaurant', amount: -4140.00, category: 'Food', accountId: 'acc2' },
-];
-
-const mockCategories: Category[] = [
-  { id: '1', name: 'Food', icon: 'Utensils', limit: 37500, limitType: 'monthly', spent: 18750, color: 'hsl(var(--chart-1))' },
-  { id: '2', name: 'Transportation', icon: 'Car', limit: 15000, limitType: 'monthly', spent: 11250, color: 'hsl(var(--chart-2))' },
-  { id: '3', name: 'Entertainment', icon: 'Ticket', limit: 11250, limitType: 'monthly', spent: 7500, color: 'hsl(var(--chart-3))' },
-  { id: '4', name: 'Utilities', icon: 'Home', limit: 22500, limitType: 'monthly', spent: 21000, color: 'hsl(var(--chart-4))' },
-  { id: '5', name: 'Shopping', icon: 'ShoppingBag', limit: 30000, limitType: 'monthly', spent: 7500, color: 'hsl(var(--chart-5))' },
-];
-
-const chartConfig = {
-  spent: { label: "Spent", color: "hsl(var(--chart-1))" },
-  food: { label: "Food", color: "hsl(var(--chart-1))" },
-  transportation: { label: "Transportation", color: "hsl(var(--chart-2))" },
-  entertainment: { label: "Entertainment", color: "hsl(var(--chart-3))" },
-  utilities: { label: "Utilities", color: "hsl(var(--chart-4))" },
-  shopping: { label: "Shopping", color: "hsl(var(--chart-5))" },
-};
-
-
-export default function DashboardPage() {
-  const [totalBalance, setTotalBalance] = useState(0);
-  const [monthlySpending, setMonthlySpending] = useState(0);
-
-  useEffect(() => {
-    // Simulate fetching data
-    setTotalBalance(437268.75); // Mocked
-    const spending = mockTransactions
-      .filter(t => t.amount < 0 && new Date(t.date).getMonth() === new Date().getMonth())
-      .reduce((sum, t) => sum + Math.abs(t.amount), 0);
-    setMonthlySpending(spending);
-  }, []);
-
-  const spendingData = mockCategories.map(cat => ({
-    name: cat.name,
-    value: cat.spent,
-    fill: cat.color,
-  }));
-
+export default function HomePage() {
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-8 font-headline">Dashboard</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gradient-to-br from-background to-blue-50">
+      <main className="flex flex-col items-center justify-center w-full flex-1 px-4 sm:px-20 text-center">
+        <div className="mb-8">
+          <Image
+            src="https://placehold.co/150x150.png"
+            alt="PennyPilot Logo"
+            width={150}
+            height={150}
+            className="rounded-full shadow-lg"
+            data-ai-hint="logo financial app"
+          />
+        </div>
+        <h1 className="text-5xl sm:text-6xl font-bold font-headline text-primary">
+          Welcome to PennyPilot Tracker
+        </h1>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Balance</CardTitle>
-            <DollarSign className="h-5 w-5 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">₹{totalBalance.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
-            <p className="text-xs text-muted-foreground">+20.1% from last month</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Monthly Spending</CardTitle>
-            <CreditCard className="h-5 w-5 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">₹{monthlySpending.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
-            <p className="text-xs text-muted-foreground">Compared to ₹90,000 budget</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Budget Status</CardTitle>
-            <TrendingUp className="h-5 w-5 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">75% Utilized</div>
-            <p className="text-xs text-muted-foreground">3 of 5 categories near limit</p>
-          </CardContent>
-        </Card>
-      </div>
+        <p className="mt-6 text-xl sm:text-2xl text-foreground/80 max-w-2xl">
+          Your smart companion for managing finances, tracking expenses, and achieving your budget goals with ease.
+        </p>
 
-      <div className="grid gap-6 md:grid-cols-2 mb-8">
-        <Card>
-          <CardHeader>
-            <CardTitle className="font-headline">Spending by Category</CardTitle>
-            <CardDescription>Your spending distribution for this month.</CardDescription>
-          </CardHeader>
-          <CardContent className="h-[350px]">
-            <ChartContainer config={chartConfig} className="aspect-square h-full w-full">
-              <PieChart>
-                <RechartsTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent hideLabel formatter={(value, name, props) => [`₹${Number(value).toLocaleString('en-IN')}`, props.payload.name]} />} />
-                <Pie data={spendingData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={120} labelLine={false} label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
-                  {spendingData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.fill} />
-                  ))}
-                </Pie>
-                <ChartLegend content={<ChartLegendContent nameKey="name" />} />
-              </PieChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle className="font-headline">Budget Progress</CardTitle>
-            <CardDescription>Your progress towards monthly category limits.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {mockCategories.slice(0,4).map(category => (
-              <div key={category.id}>
-                <div className="flex justify-between mb-1">
-                  <span className="text-sm font-medium">{category.name}</span>
-                  <span className="text-sm text-muted-foreground">₹{category.spent.toLocaleString('en-IN')} / ₹{category.limit.toLocaleString('en-IN')}</span>
-                </div>
-                <Progress value={(category.spent / category.limit) * 100} className="h-3" />
-              </div>
-            ))}
-            <div className="pt-2">
-              <Link href="/budget">
-                <Button variant="outline" className="w-full">View All Budgets</Button>
-              </Link>
+        <div className="mt-10 flex flex-wrap justify-center gap-4">
+          <Link href="/accounts" passHref>
+            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+              View Accounts
+            </Button>
+          </Link>
+          <Link href="/budget" passHref>
+            <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
+              Manage Budget
+            </Button>
+          </Link>
+        </div>
+
+        <section className="mt-16 w-full max-w-4xl">
+          <h2 className="text-3xl font-semibold font-headline mb-6 text-foreground">Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 bg-card rounded-lg shadow-md hover:shadow-xl transition-shadow">
+              <h3 className="text-xl font-semibold text-primary mb-2">Bank Linking</h3>
+              <p className="text-sm text-card-foreground/70">Securely connect your bank accounts to automatically track transactions.</p>
             </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="font-headline">Recent Transactions</CardTitle>
-          <CardDescription>Your latest financial activities.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Description</TableHead>
-                <TableHead>Category</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
-                <TableHead>Date</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {mockTransactions.slice(0, 5).map((transaction) => (
-                <TableRow key={transaction.id}>
-                  <TableCell className="font-medium">{transaction.description}</TableCell>
-                  <TableCell>{transaction.category}</TableCell>
-                  <TableCell className={`text-right ${transaction.amount < 0 ? 'text-destructive' : 'text-green-600'}`}>
-                    ₹{Math.abs(transaction.amount).toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2})}
-                  </TableCell>
-                  <TableCell>{new Date(transaction.date).toLocaleDateString()}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-           <div className="pt-4 text-center">
-              <Link href="/accounts">
-                <Button variant="outline">View All Transactions</Button>
-              </Link>
+            <div className="p-6 bg-card rounded-lg shadow-md hover:shadow-xl transition-shadow">
+              <h3 className="text-xl font-semibold text-primary mb-2">Smart Budgeting</h3>
+              <p className="text-sm text-card-foreground/70">Create custom categories, set limits, and get AI-powered suggestions.</p>
             </div>
-        </CardContent>
-      </Card>
+            <div className="p-6 bg-card rounded-lg shadow-md hover:shadow-xl transition-shadow">
+              <h3 className="text-xl font-semibold text-primary mb-2">Visual Insights</h3>
+              <p className="text-sm text-card-foreground/70">Visualize your spending patterns and budget status with clear charts.</p>
+            </div>
+          </div>
+        </section>
+        
+        <div className="mt-12">
+          <Button>New Button Text</Button>
+        </div>
+
+      </main>
+
+      <footer className="w-full h-20 flex justify-center items-center border-t mt-12">
+        <p className="text-muted-foreground">
+          © {new Date().getFullYear()} PennyPilot Tracker. All rights reserved.
+        </p>
+      </footer>
     </div>
   );
 }

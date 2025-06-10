@@ -1,12 +1,12 @@
 
 import type { NavItem } from '@/types';
-import { Home as HomeIcon, Landmark, ListChecks, Lightbulb, SettingsIcon as Settings, Info, Users, MessageSquare, ShieldCheck, TrendingUp, BellDot, Goal, Sparkles, Zap, CheckCircle } from 'lucide-react'; // Added more icons
+import { Home as HomeIcon, Landmark, ListChecks, Lightbulb, SettingsIcon as Settings, Info, Users, MessageSquare, ShieldCheck, TrendingUp, BellDot, Goal, Sparkles, Zap, CheckCircle, LayoutDashboard } from 'lucide-react'; // Added LayoutDashboard
 
 export const navItems: NavItem[] = [
   {
-    title: 'Home', // Changed from 'Dashboard'
-    href: '/',
-    icon: HomeIcon,
+    title: 'Home', 
+    href: '/accounts', // Changed from '/' to '/accounts'
+    icon: LayoutDashboard, // Changed to LayoutDashboard for an "app home" feel
   },
   {
     title: 'Accounts',
@@ -44,3 +44,4 @@ export const sectionIcons = {
   FlexibleLimits: TrendingUp,
   InstantAlerts: BellDot,
 };
+

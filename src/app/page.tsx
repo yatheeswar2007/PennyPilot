@@ -81,23 +81,36 @@ export default function HomePage() {
             <Image
               src="/images/penny-pilot-logo.png"
               alt="PennyPilot Logo"
-              width={150} 
-              height={40}
-              className="h-8 w-auto" 
+              width={280} 
+              height={70}
+              className="h-8 w-auto md:h-10" 
               data-ai-hint="compass finance"
             />
           </Link>
-          <div className="hidden md:flex space-x-6">
-            {navLinks.map(link => (
-              <Link key={link.title} href={link.href} passHref>
-                <Button variant="ghost" className="text-foreground/80 hover:text-primary hover:bg-primary/10">
-                  {link.title}
-                </Button>
-              </Link>
-            ))}
-          </div>
-           <div className="md:hidden"> {/* Basic mobile menu toggle - can be enhanced */}
-            {/* Implement a dropdown or sheet menu here for mobile */}
+          <div className="flex items-center">
+            <div className="hidden md:flex space-x-4 mr-4">
+              {navLinks.map(link => (
+                <Link key={link.title} href={link.href} passHref>
+                  <Button variant="ghost" className="text-foreground/80 hover:text-primary hover:bg-primary/10 px-3 py-2 text-sm">
+                    {link.title}
+                  </Button>
+                </Link>
+              ))}
+            </div>
+            <div className="hidden md:flex items-center space-x-3">
+                <Link href="/login" passHref>
+                    <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary/10 hover:text-primary">Log In</Button>
+                </Link>
+                <Link href="/signup" passHref>
+                    <Button size="sm" className="bg-accent hover:bg-accent/90 text-accent-foreground">Sign Up</Button>
+                </Link>
+            </div>
+            <div className="md:hidden"> {/* Basic mobile menu toggle - can be enhanced */}
+              {/* You could add a Sheet or DropdownMenu here for mobile nav */}
+              <Button variant="ghost" size="icon">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+              </Button>
+            </div>
           </div>
         </div>
       </nav>
@@ -143,7 +156,7 @@ export default function HomePage() {
                 Sign up free in under a minute
               </Button>
             </Link>
-            <Link href="/login" passHref>
+            <Link href="/login" passHref> {/* Added Log In button here as well for hero section consistency */}
               <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
                 Log In
               </Button>
@@ -224,7 +237,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* About Us Section */}
+      {/* About Us Section - Moved after Why Choose */}
       <section id="about-us" className="py-16 sm:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold font-headline text-center mb-4 text-primary">About Us</h2>
@@ -239,12 +252,12 @@ export default function HomePage() {
               {keyAspects.map((aspect) => {
                 const Icon = aspect.icon;
                 return (
-                  <Card key={aspect.title} className="text-center p-6 hover:shadow-lg transition-shadow bg-primary/5">
-                    <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-primary/20 mb-4">
-                       <Icon className={`h-7 w-7 ${aspect.color}`} />
+                  <Card key={aspect.title} className="text-center p-6 hover:shadow-lg transition-shadow bg-card border-t-4 border-primary/50">
+                    <div className="mx-auto flex items-center justify-center h-14 w-14 rounded-full bg-primary/10 mb-4 ring-4 ring-primary/20">
+                       <Icon className={`h-7 w-7 ${aspect.color || 'text-primary'}`} />
                     </div>
                     <h4 className="text-lg font-semibold text-primary mb-2">{aspect.title}</h4>
-                    <p className="text-sm text-muted-foreground">{aspect.description}</p>
+                    <p className="text-sm text-card-foreground/80">{aspect.description}</p>
                   </Card>
                 );
               })}

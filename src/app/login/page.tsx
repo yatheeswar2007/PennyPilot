@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { LogIn, AlertCircle } from 'lucide-react';
 import Image from 'next/image';
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast"; // Added missing import
 
 export default function LoginPage() {
   const router = useRouter();

@@ -22,18 +22,17 @@ import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { navItems } from "@/config/site";
 import { LogOut } from "lucide-react"; 
-import { useToast } from "@/hooks/use-toast"; // Added import for useToast
+import { useToast } from "@/hooks/use-toast";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { toast } = useToast(); // Initialized useToast
+  const { toast } = useToast();
 
   const handleLogout = () => {
     toast({
       title: "Logout Action",
       description: "Logout functionality would be implemented here.",
     });
-    // In a real application, you would call your authentication service here.
     console.log("Logout button clicked. Implement actual logout logic.");
   };
 
@@ -50,7 +49,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 height={40} 
                 className="h-8 w-auto group-data-[collapsible=icon]:h-7 group-data-[collapsible=icon]:w-7 group-data-[collapsible=icon]:object-contain"
                 data-ai-hint="compass finance"
-                priority
+                
               />
             </Link>
           </SidebarHeader>
@@ -105,7 +104,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           </main>
         </SidebarInset>
       </div>
-      {/* Removed Toaster from here as it's in RootLayout */}
     </SidebarProvider>
   );
 }

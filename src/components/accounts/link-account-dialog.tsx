@@ -26,8 +26,8 @@ interface LinkAccountDialogProps {
 
 const formSchema = z.object({
   bankName: z.string().min(2, { message: "Bank name must be at least 2 characters." }),
-  accountName: z.string().min(2, { message: "Account name must be at least 2 characters." }),
-  last4: z.string().length(4, { message: "Last 4 digits must be 4 numbers." }).regex(/^\d+$/, "Must be numbers"),
+  name: z.string().min(2, { message: "Account name must be at least 2 characters." }), // Changed from accountName
+  accountNumber: z.string().min(2, { message: "Account number must be at least 2 characters." }), // Changed from last4
   balance: z.preprocess(
     (val) => parseFloat(String(val)),
     z.number().min(0, { message: "Balance must be a positive number." })
@@ -47,8 +47,8 @@ export default function LinkAccountDialog({ isOpen, onClose, onAccountLinked }: 
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     onAccountLinked({
-      name: data.accountName,
-      last4: data.last4,
+      name: data.name, // Changed from accountName
+      accountNumber: data.accountNumber, // Changed from last4
       balance: data.balance,
       currency: data.currency.toUpperCase(),
       bankName: data.bankName,
@@ -74,14 +74,14 @@ export default function LinkAccountDialog({ isOpen, onClose, onAccountLinked }: 
               {errors.bankName && <p className="col-span-4 text-sm text-destructive text-right">{errors.bankName.message}</p>}
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="accountName" className="text-right">Account Nickname</Label>
-              <Input id="accountName" {...register('accountName')} className="col-span-3" />
-              {errors.accountName && <p className="col-span-4 text-sm text-destructive text-right">{errors.accountName.message}</p>}
+              <Label htmlFor="name" className="text-right">Name</Label> 
+              <Input id="name" {...register('name')} className="col-span-3" />
+              {errors.name && <p className="col-span-4 text-sm text-destructive text-right">{errors.name.message}</p>}
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="last4" className="text-right">Last 4 Digits</Label>
-              <Input id="last4" {...register('last4')} className="col-span-3" placeholder="e.g., 1234" />
-              {errors.last4 && <p className="col-span-4 text-sm text-destructive text-right">{errors.last4.message}</p>}
+              <Label htmlFor="accountNumber" className="text-right">Account Number</Label>
+              <Input id="accountNumber" {...register('accountNumber')} className="col-span-3" placeholder="e.g., 00123456789" />
+              {errors.accountNumber && <p className="col-span-4 text-sm text-destructive text-right">{errors.accountNumber.message}</p>}
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="balance" className="text-right">Current Balance</Label>

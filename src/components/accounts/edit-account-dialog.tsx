@@ -26,12 +26,13 @@ interface EditAccountDialogProps {
 }
 
 const formSchema = z.object({
-  accountName: z.string().min(2, { message: "Account name must be at least 2 characters." }),
+  name: z.string().min(2, { message: "Account name must be at least 2 characters." }), // Changed from accountName
   bankName: z.string().min(2, { message: "Bank name must be at least 2 characters." }),
   balance: z.preprocess(
     (val) => parseFloat(String(val)),
     z.number({invalid_type_error: "Balance must be a number."})
   ),
+  // accountNumber is not part of the editable form schema as it's disabled
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -40,7 +41,7 @@ export default function EditAccountDialog({ isOpen, onClose, account, onAccountU
   const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      accountName: account.name,
+      name: account.name,
       bankName: account.bankName,
       balance: account.balance,
     }
@@ -49,7 +50,7 @@ export default function EditAccountDialog({ isOpen, onClose, account, onAccountU
   useEffect(() => {
     if (account && isOpen) {
       reset({
-        accountName: account.name,
+        name: account.name, // Changed from accountName
         bankName: account.bankName,
         balance: account.balance,
       });
@@ -58,12 +59,12 @@ export default function EditAccountDialog({ isOpen, onClose, account, onAccountU
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     onAccountUpdated({
-      ...account, // Keep id, last4, currency
-      name: data.accountName,
+      ...account, // Keep id, accountNumber, currency
+      name: data.name, // Changed from accountName
       bankName: data.bankName,
       balance: data.balance,
     });
-    onClose(); // reset is handled by useEffect or can be called explicitly if needed
+    onClose();
   };
 
   return (
@@ -72,15 +73,15 @@ export default function EditAccountDialog({ isOpen, onClose, account, onAccountU
         <DialogHeader>
           <DialogTitle>Edit Account: {account.name}</DialogTitle>
           <DialogDescription>
-            Update the details for this bank account.
+            Update the details for this bank account. Account number and currency are not editable.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="accountName" className="text-right">Account Nickname</Label>
-              <Input id="accountName" {...register('accountName')} className="col-span-3" />
-              {errors.accountName && <p className="col-span-4 text-sm text-destructive text-right">{errors.accountName.message}</p>}
+              <Label htmlFor="name" className="text-right">Name</Label>
+              <Input id="name" {...register('name')} className="col-span-3" />
+              {errors.name && <p className="col-span-4 text-sm text-destructive text-right">{errors.name.message}</p>}
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="bankName" className="text-right">Bank Name</Label>
@@ -88,8 +89,8 @@ export default function EditAccountDialog({ isOpen, onClose, account, onAccountU
               {errors.bankName && <p className="col-span-4 text-sm text-destructive text-right">{errors.bankName.message}</p>}
             </div>
              <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="last4Display" className="text-right">Last 4 Digits</Label>
-              <Input id="last4Display" value={account.last4} className="col-span-3" disabled />
+              <Label htmlFor="accountNumberDisplay" className="text-right">Account Number</Label>
+              <Input id="accountNumberDisplay" value={account.accountNumber} className="col-span-3" disabled />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="balance" className="text-right">Current Balance</Label>

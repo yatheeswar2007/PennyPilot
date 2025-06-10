@@ -7,19 +7,19 @@ import { Button } from "@/components/ui/button";
 import { PlusCircle, Landmark, Trash2, Edit3 } from 'lucide-react';
 import type { BankAccount } from '@/types';
 import LinkAccountDialog from '@/components/accounts/link-account-dialog';
-import EditAccountDialog from '@/components/accounts/edit-account-dialog'; // New import
+import EditAccountDialog from '@/components/accounts/edit-account-dialog';
 
 const initialMockAccounts: BankAccount[] = [
-  { id: '1', name: 'HDFC Checking', last4: '1234', balance: 187556.25, currency: 'INR', bankName: 'HDFC Bank' },
-  { id: '2', name: 'ICICI Savings', last4: '5678', balance: 787537.50, currency: 'INR', bankName: 'ICICI Bank' },
-  { id: '3', name: 'SBI Credit Card', last4: '9012', balance: -26251.50, currency: 'INR', bankName: 'State Bank of India' },
+  { id: '1', name: 'HDFC Checking', accountNumber: 'XXXXXX1234', balance: 187556.25, currency: 'INR', bankName: 'HDFC Bank' },
+  { id: '2', name: 'ICICI Savings', accountNumber: 'XXXXXX5678', balance: 787537.50, currency: 'INR', bankName: 'ICICI Bank' },
+  { id: '3', name: 'SBI Credit Card', accountNumber: 'XXXXXX9012', balance: -26251.50, currency: 'INR', bankName: 'State Bank of India' },
 ];
 
 export default function AccountsPage() {
   const [accounts, setAccounts] = useState<BankAccount[]>(initialMockAccounts);
   const [isLinkDialogOpen, setIsLinkDialogOpen] = useState(false);
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false); // State for edit dialog
-  const [editingAccount, setEditingAccount] = useState<BankAccount | null>(null); // State for account being edited
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editingAccount, setEditingAccount] = useState<BankAccount | null>(null);
 
   const handleAddAccount = (newAccount: Omit<BankAccount, 'id'>) => {
     setAccounts(prev => [...prev, { ...newAccount, id: String(Date.now()) }]);
@@ -71,7 +71,7 @@ export default function AccountsPage() {
                       <Landmark className="mr-2 h-6 w-6 text-primary" />
                       {account.name}
                     </CardTitle>
-                    <CardDescription>{account.bankName} - Ending in {account.last4}</CardDescription>
+                    <CardDescription>{account.bankName} - Acct: {account.accountNumber}</CardDescription>
                   </div>
                 </div>
               </CardHeader>

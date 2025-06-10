@@ -1,9 +1,10 @@
+
 import type { LucideIcon } from 'lucide-react';
 
 export interface BankAccount {
   id: string;
-  name: string;
-  last4: string;
+  name: string; // Changed from "Account Nickname" concept
+  accountNumber: string; // Changed from last4
   balance: number;
   currency: string;
   bankName: string;

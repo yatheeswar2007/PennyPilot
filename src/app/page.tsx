@@ -18,12 +18,12 @@ export default function HomePage() {
       <main className="flex flex-col items-center justify-center w-full flex-1 px-4 sm:px-20 text-center">
         <div className="mb-8">
           <Image
-            src="https://placehold.co/150x150.png"
-            alt="PennyPilot Logo"
+            src="/images/penny-pilot-logo.png"
+            alt="PennyPilot Mascot Logo"
             width={150}
             height={150}
             className="rounded-full shadow-lg"
-            data-ai-hint="logo financial app"
+            data-ai-hint="pilot coin"
           />
         </div>
         <h1 className="text-5xl sm:text-6xl font-bold font-headline text-primary">

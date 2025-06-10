@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -7,24 +8,24 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Progress } from "@/components/ui/progress";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
 import { PieChart, Pie, Cell, Tooltip as RechartsTooltip } from 'recharts';
-import { DollarSign, TrendingUp, AlertCircle, Activity, Users, CreditCard } from 'lucide-react';
+import { DollarSign, TrendingUp, CreditCard } from 'lucide-react'; // Removed AlertCircle, Activity, Users as they are not used here after previous changes.
 import type { Transaction, Category } from '@/types';
 import Link from 'next/link';
 
 const mockTransactions: Transaction[] = [
-  { id: '1', date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), description: 'Groceries', amount: -75.50, category: 'Food', accountId: 'acc1' },
-  { id: '2', date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), description: 'Gasoline', amount: -40.00, category: 'Transportation', accountId: 'acc1' },
-  { id: '3', date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), description: 'Movie Tickets', amount: -30.00, category: 'Entertainment', accountId: 'acc2' },
-  { id: '4', date: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(), description: 'Salary Deposit', amount: 2500.00, category: 'Income', accountId: 'acc1' },
-  { id: '5', date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), description: 'Restaurant', amount: -55.20, category: 'Food', accountId: 'acc2' },
+  { id: '1', date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), description: 'Groceries', amount: -5662.50, category: 'Food', accountId: 'acc1' },
+  { id: '2', date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), description: 'Petrol', amount: -3000.00, category: 'Transportation', accountId: 'acc1' },
+  { id: '3', date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), description: 'Movie Tickets', amount: -2250.00, category: 'Entertainment', accountId: 'acc2' },
+  { id: '4', date: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(), description: 'Salary Deposit', amount: 187500.00, category: 'Income', accountId: 'acc1' },
+  { id: '5', date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), description: 'Restaurant', amount: -4140.00, category: 'Food', accountId: 'acc2' },
 ];
 
 const mockCategories: Category[] = [
-  { id: '1', name: 'Food', icon: 'Utensils', limit: 500, limitType: 'monthly', spent: 250, color: 'hsl(var(--chart-1))' },
-  { id: '2', name: 'Transportation', icon: 'Car', limit: 200, limitType: 'monthly', spent: 150, color: 'hsl(var(--chart-2))' },
-  { id: '3', name: 'Entertainment', icon: 'Ticket', limit: 150, limitType: 'monthly', spent: 100, color: 'hsl(var(--chart-3))' },
-  { id: '4', name: 'Utilities', icon: 'Home', limit: 300, limitType: 'monthly', spent: 280, color: 'hsl(var(--chart-4))' },
-  { id: '5', name: 'Shopping', icon: 'ShoppingBag', limit: 400, limitType: 'monthly', spent: 100, color: 'hsl(var(--chart-5))' },
+  { id: '1', name: 'Food', icon: 'Utensils', limit: 37500, limitType: 'monthly', spent: 18750, color: 'hsl(var(--chart-1))' },
+  { id: '2', name: 'Transportation', icon: 'Car', limit: 15000, limitType: 'monthly', spent: 11250, color: 'hsl(var(--chart-2))' },
+  { id: '3', name: 'Entertainment', icon: 'Ticket', limit: 11250, limitType: 'monthly', spent: 7500, color: 'hsl(var(--chart-3))' },
+  { id: '4', name: 'Utilities', icon: 'Home', limit: 22500, limitType: 'monthly', spent: 21000, color: 'hsl(var(--chart-4))' },
+  { id: '5', name: 'Shopping', icon: 'ShoppingBag', limit: 30000, limitType: 'monthly', spent: 7500, color: 'hsl(var(--chart-5))' },
 ];
 
 const chartConfig = {
@@ -43,7 +44,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     // Simulate fetching data
-    setTotalBalance(5830.25); // Mocked
+    setTotalBalance(437268.75); // Mocked
     const spending = mockTransactions
       .filter(t => t.amount < 0 && new Date(t.date).getMonth() === new Date().getMonth())
       .reduce((sum, t) => sum + Math.abs(t.amount), 0);
@@ -67,7 +68,7 @@ export default function DashboardPage() {
             <DollarSign className="h-5 w-5 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">${totalBalance.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
+            <div className="text-2xl font-bold">₹{totalBalance.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
             <p className="text-xs text-muted-foreground">+20.1% from last month</p>
           </CardContent>
         </Card>
@@ -77,8 +78,8 @@ export default function DashboardPage() {
             <CreditCard className="h-5 w-5 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">${monthlySpending.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
-            <p className="text-xs text-muted-foreground">Compared to $1,200 budget</p>
+            <div className="text-2xl font-bold">₹{monthlySpending.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
+            <p className="text-xs text-muted-foreground">Compared to ₹90,000 budget</p>
           </CardContent>
         </Card>
         <Card>
@@ -104,7 +105,7 @@ export default function DashboardPage() {
               <PieChart>
                 <RechartsTooltip
                   cursor={false}
-                  content={<ChartTooltipContent hideLabel />} />
+                  content={<ChartTooltipContent hideLabel formatter={(value, name, props) => [`₹${Number(value).toLocaleString('en-IN')}`, props.payload.name]} />} />
                 <Pie data={spendingData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={120} labelLine={false} label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
                   {spendingData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.fill} />
@@ -125,7 +126,7 @@ export default function DashboardPage() {
               <div key={category.id}>
                 <div className="flex justify-between mb-1">
                   <span className="text-sm font-medium">{category.name}</span>
-                  <span className="text-sm text-muted-foreground">${category.spent} / ${category.limit}</span>
+                  <span className="text-sm text-muted-foreground">₹{category.spent.toLocaleString('en-IN')} / ₹{category.limit.toLocaleString('en-IN')}</span>
                 </div>
                 <Progress value={(category.spent / category.limit) * 100} className="h-3" />
               </div>
@@ -160,7 +161,7 @@ export default function DashboardPage() {
                   <TableCell className="font-medium">{transaction.description}</TableCell>
                   <TableCell>{transaction.category}</TableCell>
                   <TableCell className={`text-right ${transaction.amount < 0 ? 'text-destructive' : 'text-green-600'}`}>
-                    ${Math.abs(transaction.amount).toFixed(2)}
+                    ₹{Math.abs(transaction.amount).toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2})}
                   </TableCell>
                   <TableCell>{new Date(transaction.date).toLocaleDateString()}</TableCell>
                 </TableRow>

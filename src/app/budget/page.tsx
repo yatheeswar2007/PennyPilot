@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from 'react';
@@ -15,11 +16,11 @@ const ICONS: { [key: string]: LucideIcon } = {
 };
 
 const initialMockCategories: Category[] = [
-  { id: '1', name: 'Food', icon: 'Utensils', limit: 500, limitType: 'monthly', spent: 250.75, color: 'hsl(var(--chart-1))' },
-  { id: '2', name: 'Transportation', icon: 'Car', limit: 200, limitType: 'monthly', spent: 150.20, color: 'hsl(var(--chart-2))' },
-  { id: '3', name: 'Entertainment', icon: 'Ticket', limit: 150, limitType: 'monthly', spent: 180.00, color: 'hsl(var(--chart-3))' }, // Over budget
-  { id: '4', name: 'Utilities', icon: 'Home', limit: 300, limitType: 'monthly', spent: 280.50, color: 'hsl(var(--chart-4))' },
-  { id: '5', name: 'Shopping', icon: 'ShoppingBag', limit: 400, limitType: 'monthly', spent: 100.00, color: 'hsl(var(--chart-5))' },
+  { id: '1', name: 'Food', icon: 'Utensils', limit: 37500, limitType: 'monthly', spent: 18806.25, color: 'hsl(var(--chart-1))' },
+  { id: '2', name: 'Transportation', icon: 'Car', limit: 15000, limitType: 'monthly', spent: 11265.00, color: 'hsl(var(--chart-2))' },
+  { id: '3', name: 'Entertainment', icon: 'Ticket', limit: 11250, limitType: 'monthly', spent: 13500.00, color: 'hsl(var(--chart-3))' }, // Over budget
+  { id: '4', name: 'Utilities', icon: 'Home', limit: 22500, limitType: 'monthly', spent: 21037.50, color: 'hsl(var(--chart-4))' },
+  { id: '5', name: 'Shopping', icon: 'ShoppingBag', limit: 30000, limitType: 'monthly', spent: 7500.00, color: 'hsl(var(--chart-5))' },
 ];
 
 export default function BudgetPage() {
@@ -90,7 +91,7 @@ export default function BudgetPage() {
                       <div>
                         <CardTitle className="text-xl">{category.name}</CardTitle>
                         <CardDescription>
-                          Limit: ${category.limit.toLocaleString()} {category.limitType}
+                          Limit: ₹{category.limit.toLocaleString('en-IN')} {category.limitType}
                         </CardDescription>
                       </div>
                     </div>
@@ -123,7 +124,7 @@ export default function BudgetPage() {
                 <CardContent className="pb-4">
                   <div className="flex justify-between items-center mb-2">
                     <span className={`text-lg font-semibold ${isOverBudget ? 'text-destructive' : ''}`}>
-                      ${category.spent.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} spent
+                      ₹{category.spent.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})} spent
                     </span>
                     {isOverBudget ? (
                       <span className="text-sm text-destructive flex items-center">

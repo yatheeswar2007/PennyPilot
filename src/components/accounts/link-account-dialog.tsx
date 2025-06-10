@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -31,7 +32,7 @@ const formSchema = z.object({
     (val) => parseFloat(String(val)),
     z.number().min(0, { message: "Balance must be a positive number." })
   ),
-  currency: z.string().length(3, { message: "Currency code must be 3 letters." }).default('USD'),
+  currency: z.string().length(3, { message: "Currency code must be 3 letters." }).default('INR'),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -39,6 +40,9 @@ type FormData = z.infer<typeof formSchema>;
 export default function LinkAccountDialog({ isOpen, onClose, onAccountLinked }: LinkAccountDialogProps) {
   const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      currency: 'INR',
+    }
   });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
@@ -86,7 +90,7 @@ export default function LinkAccountDialog({ isOpen, onClose, onAccountLinked }: 
             </div>
              <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="currency" className="text-right">Currency</Label>
-              <Input id="currency" defaultValue="USD" {...register('currency')} className="col-span-3" />
+              <Input id="currency" defaultValue="INR" {...register('currency')} className="col-span-3" />
               {errors.currency && <p className="col-span-4 text-sm text-destructive text-right">{errors.currency.message}</p>}
             </div>
           </div>

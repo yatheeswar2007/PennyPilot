@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from 'react';
@@ -8,9 +9,9 @@ import type { BankAccount } from '@/types';
 import LinkAccountDialog from '@/components/accounts/link-account-dialog';
 
 const initialMockAccounts: BankAccount[] = [
-  { id: '1', name: 'Chase Checking', last4: '1234', balance: 2500.75, currency: 'USD', bankName: 'Chase Bank' },
-  { id: '2', name: 'BoA Savings', last4: '5678', balance: 10500.50, currency: 'USD', bankName: 'Bank of America' },
-  { id: '3', name: 'Amex Credit Card', last4: '9012', balance: -350.20, currency: 'USD', bankName: 'American Express' },
+  { id: '1', name: 'HDFC Checking', last4: '1234', balance: 187556.25, currency: 'INR', bankName: 'HDFC Bank' },
+  { id: '2', name: 'ICICI Savings', last4: '5678', balance: 787537.50, currency: 'INR', bankName: 'ICICI Bank' },
+  { id: '3', name: 'SBI Credit Card', last4: '9012', balance: -26251.50, currency: 'INR', bankName: 'State Bank of India' },
 ];
 
 export default function AccountsPage() {
@@ -63,7 +64,7 @@ export default function AccountsPage() {
               </CardHeader>
               <CardContent className="flex-grow">
                 <p className="text-3xl font-semibold">
-                  {account.balance < 0 ? '-' : ''}${Math.abs(account.balance).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                  {account.balance < 0 ? '-' : ''}₹{Math.abs(account.balance).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                   <span className="text-sm text-muted-foreground ml-1">{account.currency}</span>
                 </p>
                 {/* Add more account details if needed, like last sync time */}

@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -5,8 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { SuggestBudgetOutput, AISuggestion, AIOverspendingArea } from '@/types'; // Using general types
-import { DollarSign, AlertTriangle, CheckCircle2, Info } from 'lucide-react';
+import type { SuggestBudgetOutput } from '@/ai/flows/suggest-budget'; // Use specific type from flow
+import type { AISuggestion, AIOverspendingArea } from '@/types'; // Using general types for parsed data
+import { CheckCircle2, AlertTriangle, Info } from 'lucide-react'; // Removed DollarSign as it's not directly used now
 
 interface BudgetSuggestionDisplayProps {
   suggestions: SuggestBudgetOutput | null;
@@ -100,7 +102,7 @@ export default function BudgetSuggestionDisplay({ suggestions, isLoading, error 
                     <div className="flex items-center justify-between w-full pr-2">
                         <span className="font-medium">{item.category}</span>
                         <span className="text-primary font-semibold">
-                            ${item.suggestedLimit.toLocaleString()}
+                            ₹{item.suggestedLimit.toLocaleString('en-IN')}
                         </span>
                     </div>
                   </AccordionTrigger>

@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -6,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"; // Removed AvatarImage
 import { User, Bell, Palette, Shield } from 'lucide-react';
 
 export default function SettingsPage() {
@@ -23,8 +24,8 @@ export default function SettingsPage() {
             </CardHeader>
             <CardContent className="space-y-4">
                <Avatar className="h-24 w-24 mx-auto mb-4">
-                <AvatarImage src="https://placehold.co/100x100.png" alt="User Avatar" data-ai-hint="user avatar" />
-                <AvatarFallback>PP</AvatarFallback>
+                {/* Removed AvatarImage as no logo is available. Using fallback. */}
+                <AvatarFallback className="text-3xl">PP</AvatarFallback>
               </Avatar>
               <div>
                 <Label htmlFor="name">Full Name</Label>
@@ -88,3 +89,5 @@ export default function SettingsPage() {
     </div>
   );
 }
+
+    

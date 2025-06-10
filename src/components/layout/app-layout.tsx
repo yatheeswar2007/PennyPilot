@@ -3,7 +3,6 @@
 
 import * as React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation"; // Added useRouter
 import {
   SidebarProvider,
@@ -19,32 +18,29 @@ import {
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"; // Removed AvatarImage
 import { navItems } from "@/config/site";
 import { LogOut } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const router = useRouter(); // Added router
+  const router = useRouter(); 
   const { toast } = useToast();
 
   const handleLogout = () => {
-    // In a real app, you'd clear auth tokens/state here
     toast({
       title: "Logged Out",
       description: "You have been successfully logged out.",
     });
-    router.push('/'); // Redirect to homepage after logout
-    console.log("Logout button clicked. Redirecting to homepage.");
+    router.push('/'); 
   };
 
-  // Hide sidebar and app layout structure on public pages like home, login, signup
   const publicPages = ['/', '/login', '/signup'];
   const isPublicPage = publicPages.includes(pathname);
 
   if (isPublicPage) {
-    return <main>{children}</main>; // Render only children for public pages
+    return <main>{children}</main>;
   }
 
   return (
@@ -52,16 +48,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       <div className="flex min-h-screen w-full">
         <Sidebar collapsible="icon" className="border-r">
           <SidebarHeader className="p-4">
-            <Link href="/" className="flex items-center group-data-[collapsible=icon]:justify-center">
-              <Image
-                src="/images/penny-pilot-logo.png"
-                alt="PennyPilot Logo"
-                width={120}
-                height={40}
-                className="h-8 w-auto group-data-[collapsible=icon]:h-7 group-data-[collapsible=icon]:w-7 group-data-[collapsible=icon]:object-contain"
-                data-ai-hint="compass finance"
-
-              />
+            <Link href="/" className="flex items-center justify-center group-data-[collapsible=icon]:justify-center">
+              <span className="text-xl font-bold text-primary group-data-[collapsible=icon]:hidden">PennyPilot</span>
+              <span className="text-xl font-bold text-primary hidden group-data-[collapsible=icon]:inline">PP</span>
             </Link>
           </SidebarHeader>
           <Separator className="my-0 group-data-[collapsible=icon]:mx-2" />
@@ -87,7 +76,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <SidebarFooter className="p-4">
             <div className="flex items-center gap-3 group-data-[collapsible=icon]:justify-center">
               <Avatar className="h-10 w-10 group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8">
-                <AvatarImage src="/images/penny-pilot-logo.png" alt="User Avatar" data-ai-hint="pilot coin" />
+                {/* Removed AvatarImage as no logo is available */}
                 <AvatarFallback>PP</AvatarFallback>
               </Avatar>
               <div className="flex flex-col group-data-[collapsible=icon]:hidden">
@@ -118,3 +107,5 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     </SidebarProvider>
   );
 }
+
+    

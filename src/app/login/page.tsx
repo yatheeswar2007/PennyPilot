@@ -9,8 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { LogIn, AlertCircle } from 'lucide-react';
-import Image from 'next/image';
-import { useToast } from "@/hooks/use-toast"; // Added missing import
+import { useToast } from "@/hooks/use-toast";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -21,14 +20,14 @@ export default function LoginPage() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setError(''); // Clear previous errors
+    setError(''); 
 
     if (email === 'nytr2007@gmail.com') {
       toast({
         title: "Login Successful",
         description: "Welcome back!",
       });
-      router.push('/accounts'); // Or any other authenticated page
+      router.push('/accounts'); 
     } else {
       setError('Invalid email address. Please use nytr2007@gmail.com to log in.');
     }
@@ -37,13 +36,7 @@ export default function LoginPage() {
   return (
     <div className="container mx-auto py-12 flex flex-col justify-center items-center min-h-[calc(100vh-8rem)]">
        <Link href="/" className="mb-8">
-        <Image
-          src="/images/penny-pilot-logo.png"
-          alt="PennyPilot Logo"
-          width={280}
-          height={70}
-          data-ai-hint="compass finance"
-        />
+          <span className="text-4xl font-bold text-primary">PennyPilot</span>
       </Link>
       <Card className="w-full max-w-md shadow-xl">
         <CardHeader className="text-center">
@@ -98,3 +91,5 @@ export default function LoginPage() {
     </div>
   );
 }
+
+    

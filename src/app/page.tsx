@@ -2,7 +2,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -78,14 +77,7 @@ export default function HomePage() {
       <nav className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'bg-background/90 shadow-lg backdrop-blur-md' : 'bg-transparent'}`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
           <Link href="/" className="flex items-center">
-            <Image
-              src="/images/penny-pilot-logo.png"
-              alt="PennyPilot Logo"
-              width={280}
-              height={70}
-              className="h-8 w-auto md:h-10"
-              data-ai-hint="compass finance"
-            />
+            <span className="text-2xl font-bold text-primary">PennyPilot</span>
           </Link>
           <div className="flex items-center">
             <div className="hidden md:flex space-x-4 mr-4">
@@ -119,17 +111,11 @@ export default function HomePage() {
       <section id="home" className="py-16 sm:py-24 bg-gradient-to-br from-primary/10 via-background to-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-8 inline-block">
-            <Image
-              src="/images/penny-pilot-logo.png"
-              alt="PennyPilot Logo"
-              width={280}
-              height={70}
-              data-ai-hint="compass finance"
-            />
+            <h1 className="text-5xl font-bold text-primary">PennyPilot</h1>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-headline text-primary mb-6">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold font-headline text-primary mb-6">
             Navigate Your Wallet. Master Your Budget.
-          </h1>
+          </h2>
           <p className="mt-4 text-lg sm:text-xl text-foreground/80 max-w-3xl mx-auto mb-10">
             Welcome to PennyPilot, the app that keeps you in control of every rupee you spend. By securely linking your bank account, PennyPilot becomes your financial co-pilot—guiding you toward better decisions, smarter spending, and real-time peace of mind. Whether you’re a student juggling monthly expenses or building long­term savings goals, PennyPilot helps you track, categorize, and stay on top of your money 24/7.
           </p>
@@ -269,7 +255,9 @@ export default function HomePage() {
             {teamMembers.map((member) => (
               <div key={member.name} className="group text-center">
                 <div className="relative w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-3 rounded-full overflow-hidden shadow-lg border-2 border-primary/20 transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl cursor-pointer">
-                  <Image src="https://placehold.co/150x150.png" alt={member.name} layout="fill" objectFit="cover" data-ai-hint={member.dataAiHint} />
+                  <div className="w-full h-full bg-gray-300 flex items-center justify-center">
+                    <span className="text-sm text-muted-foreground">Photo</span>
+                  </div>
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <p className="text-white text-xs sm:text-sm p-1 text-center">Class 12 Student</p>
                   </div>
@@ -358,3 +346,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+    

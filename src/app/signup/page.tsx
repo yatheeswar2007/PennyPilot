@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { UserPlus } from 'lucide-react';
-import Image from 'next/image';
 import { useToast } from "@/hooks/use-toast";
 
 export default function SignupPage() {
@@ -20,7 +19,6 @@ export default function SignupPage() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Basic client-side validation example
     if (password !== confirmPassword) {
       toast({
         title: "Signup Error",
@@ -30,14 +28,11 @@ export default function SignupPage() {
       return;
     }
 
-    // In a real app, you would send this data to your backend for user creation.
-    // For this demo, we are not storing any data as per requirements.
     toast({
       title: "Signup Submitted (Demo)",
       description: "Account creation is for demo purposes. Please log in with the allowed email.",
     });
     
-    // Clear form fields
     setFullName('');
     setEmail('');
     setPassword('');
@@ -47,13 +42,7 @@ export default function SignupPage() {
   return (
     <div className="container mx-auto py-12 flex flex-col justify-center items-center min-h-[calc(100vh-8rem)]">
        <Link href="/" className="mb-8">
-        <Image
-          src="/images/penny-pilot-logo.png"
-          alt="PennyPilot Logo"
-          width={280}
-          height={70}
-          data-ai-hint="compass finance"
-        />
+         <span className="text-4xl font-bold text-primary">PennyPilot</span>
       </Link>
       <Card className="w-full max-w-md shadow-xl">
         <CardHeader className="text-center">
@@ -124,3 +113,5 @@ export default function SignupPage() {
     </div>
   );
 }
+
+    

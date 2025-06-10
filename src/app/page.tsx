@@ -20,10 +20,11 @@ export default function HomePage() {
           <Image
             src="/images/penny-pilot-logo.png"
             alt="PennyPilot Logo"
-            width={150}
-            height={150}
-            className="rounded-full shadow-lg"
+            width={240}
+            height={60}
+            className="shadow-lg"
             data-ai-hint="compass finance"
+            priority
           />
         </div>
         <h1 className="text-5xl sm:text-6xl font-bold font-headline text-primary">

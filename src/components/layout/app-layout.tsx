@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { navItems } from "@/config/site";
-import { LogOut } from "lucide-react"; // Removed Package2 as it's no longer used here
+import { LogOut } from "lucide-react"; 
 import { Toaster } from "@/components/ui/toaster";
 
 
@@ -37,8 +37,8 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               <Image
                 src="/images/penny-pilot-logo.png"
                 alt="PennyPilot Logo"
-                width={120} // Intrinsic width of your logo (adjust if known, or use a reasonable value)
-                height={40} // Intrinsic height of your logo (adjust if known, or use a reasonable value)
+                width={120} 
+                height={40} 
                 className="h-8 w-auto group-data-[collapsible=icon]:h-7 group-data-[collapsible=icon]:w-7 group-data-[collapsible=icon]:object-contain"
                 data-ai-hint="compass finance"
                 priority
@@ -68,7 +68,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <SidebarFooter className="p-4">
             <div className="flex items-center gap-3 group-data-[collapsible=icon]:justify-center">
               <Avatar className="h-10 w-10 group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8">
-                <AvatarImage src="/images/penny-pilot-logo.png" alt="PennyPilot Logo" data-ai-hint="pilot coin" />
+                <AvatarImage src="/images/penny-pilot-logo.png" alt="PennyPilot Logo" data-ai-hint="compass finance" />
                 <AvatarFallback>PP</AvatarFallback>
               </Avatar>
               <div className="flex flex-col group-data-[collapsible=icon]:hidden">

@@ -3,7 +3,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import Image from "next/image"; // Added import for Image
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   SidebarProvider,
@@ -22,11 +22,20 @@ import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { navItems } from "@/config/site";
 import { LogOut } from "lucide-react"; 
-import { Toaster } from "@/components/ui/toaster";
-
+import { useToast } from "@/hooks/use-toast"; // Added import for useToast
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const { toast } = useToast(); // Initialized useToast
+
+  const handleLogout = () => {
+    toast({
+      title: "Logout Action",
+      description: "Logout functionality would be implemented here.",
+    });
+    // In a real application, you would call your authentication service here.
+    console.log("Logout button clicked. Implement actual logout logic.");
+  };
 
   return (
     <SidebarProvider defaultOpen={true}>
@@ -75,7 +84,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 <span className="text-sm font-medium">Penny Pilot</span>
                 <span className="text-xs text-muted-foreground">user@pennypilot.com</span>
               </div>
-              <Button variant="ghost" size="icon" className="ml-auto group-data-[collapsible=icon]:hidden">
+              <Button variant="ghost" size="icon" className="ml-auto group-data-[collapsible=icon]:hidden" onClick={handleLogout}>
                 <LogOut className="h-5 w-5" />
               </Button>
             </div>
@@ -96,7 +105,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           </main>
         </SidebarInset>
       </div>
-      <Toaster />
+      {/* Removed Toaster from here as it's in RootLayout */}
     </SidebarProvider>
   );
 }

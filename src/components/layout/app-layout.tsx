@@ -63,7 +63,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <SidebarFooter className="p-4">
             <div className="flex items-center gap-3 group-data-[collapsible=icon]:justify-center">
               <Avatar className="h-10 w-10 group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8">
-                <AvatarImage src="https://placehold.co/100x100.png" alt="User Avatar" data-ai-hint="user avatar" />
+                <AvatarImage src="/images/penny-pilot-logo.png" alt="User Avatar" data-ai-hint="pilot coin" />
                 <AvatarFallback>PP</AvatarFallback>
               </Avatar>
               <div className="flex flex-col group-data-[collapsible=icon]:hidden">

@@ -1,7 +1,7 @@
 
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,8 +9,41 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { UserPlus } from 'lucide-react';
 import Image from 'next/image';
+import { useToast } from "@/hooks/use-toast";
 
 export default function SignupPage() {
+  const { toast } = useToast();
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // Basic client-side validation example
+    if (password !== confirmPassword) {
+      toast({
+        title: "Signup Error",
+        description: "Passwords do not match.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // In a real app, you would send this data to your backend for user creation.
+    // For this demo, we are not storing any data as per requirements.
+    toast({
+      title: "Signup Submitted (Demo)",
+      description: "Account creation is for demo purposes. Please log in with the allowed email.",
+    });
+    
+    // Clear form fields
+    setFullName('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+  };
+
   return (
     <div className="container mx-auto py-12 flex flex-col justify-center items-center min-h-[calc(100vh-8rem)]">
        <Link href="/" className="mb-8">
@@ -31,22 +64,50 @@ export default function SignupPage() {
           <CardDescription>Join PennyPilot and take control of your finances.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <Label htmlFor="fullName">Full Name</Label>
-              <Input id="fullName" type="text" placeholder="Enter your full name" />
+              <Input 
+                id="fullName" 
+                type="text" 
+                placeholder="Enter your full name" 
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                required
+              />
             </div>
             <div>
               <Label htmlFor="email">Email Address</Label>
-              <Input id="email" type="email" placeholder="you@example.com" />
+              <Input 
+                id="email" 
+                type="email" 
+                placeholder="you@example.com" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
             </div>
             <div>
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" placeholder="Create a strong password" />
+              <Input 
+                id="password" 
+                type="password" 
+                placeholder="Create a strong password" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
             </div>
             <div>
               <Label htmlFor="confirmPassword">Confirm Password</Label>
-              <Input id="confirmPassword" type="password" placeholder="Re-enter your password" />
+              <Input 
+                id="confirmPassword" 
+                type="password" 
+                placeholder="Re-enter your password" 
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
             </div>
             <Button type="submit" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
               Sign Up

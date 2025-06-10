@@ -3,6 +3,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image"; // Added import for Image
 import { usePathname } from "next/navigation";
 import {
   SidebarProvider,
@@ -20,7 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { navItems } from "@/config/site";
-import { Package2, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react"; // Removed Package2 as it's no longer used here
 import { Toaster } from "@/components/ui/toaster";
 
 
@@ -32,12 +33,16 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       <div className="flex min-h-screen w-full">
         <Sidebar collapsible="icon" className="border-r">
           <SidebarHeader className="p-4">
-            <Link href="/" className="flex items-center gap-2 font-semibold group-data-[collapsible=icon]:justify-center">
-              <Button variant="ghost" size="icon" className="h-10 w-10 rounded-lg group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8">
-                <Package2 className="h-6 w-6 text-primary" />
-                <span className="sr-only">PennyPilot</span>
-              </Button>
-              <span className="text-lg font-semibold group-data-[collapsible=icon]:hidden">PennyPilot</span>
+            <Link href="/" className="flex items-center group-data-[collapsible=icon]:justify-center">
+              <Image
+                src="/images/penny-pilot-logo.png"
+                alt="PennyPilot Logo"
+                width={120} // Intrinsic width of your logo (adjust if known, or use a reasonable value)
+                height={40} // Intrinsic height of your logo (adjust if known, or use a reasonable value)
+                className="h-8 w-auto group-data-[collapsible=icon]:h-7 group-data-[collapsible=icon]:w-7 group-data-[collapsible=icon]:object-contain"
+                data-ai-hint="compass finance"
+                priority
+              />
             </Link>
           </SidebarHeader>
           <Separator className="my-0 group-data-[collapsible=icon]:mx-2" />
@@ -63,7 +68,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <SidebarFooter className="p-4">
             <div className="flex items-center gap-3 group-data-[collapsible=icon]:justify-center">
               <Avatar className="h-10 w-10 group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8">
-                <AvatarImage src="/images/penny-pilot-logo.png" alt="PennyPilot Logo" data-ai-hint="compass finance" />
+                <AvatarImage src="/images/penny-pilot-logo.png" alt="PennyPilot Logo" data-ai-hint="pilot coin" />
                 <AvatarFallback>PP</AvatarFallback>
               </Avatar>
               <div className="flex flex-col group-data-[collapsible=icon]:hidden">

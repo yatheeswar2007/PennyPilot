@@ -81,9 +81,9 @@ export default function HomePage() {
             <Image
               src="/images/penny-pilot-logo.png"
               alt="PennyPilot Logo"
-              width={280} 
+              width={280}
               height={70}
-              className="h-8 w-auto md:h-10" 
+              className="h-8 w-auto md:h-10"
               data-ai-hint="compass finance"
             />
           </Link>
@@ -156,7 +156,7 @@ export default function HomePage() {
                 Sign up free in under a minute
               </Button>
             </Link>
-            <Link href="/login" passHref> {/* Added Log In button here as well for hero section consistency */}
+            <Link href="/login" passHref>
               <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
                 Log In
               </Button>
@@ -164,7 +164,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      
+
       {/* Features Section */}
       <section id="features" className="py-16 sm:py-20 bg-slate-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -245,7 +245,7 @@ export default function HomePage() {
             At PennyPilot, we understand that managing money can feel overwhelming. We’re a team of finance enthusiasts, university toppers, and software developers who experienced firsthand how easy it is to lose track of spending—especially when life is busy with classes, projects, and everyday expenses.
             Our mission is simple: make budgeting effortless. By combining intuitive design with robust security, we give you a clear, real-time picture of where your money goes. No confusing spreadsheets, no hours spent reconciling bank statements—just actionable insights that empower you to make smarter financial choices. Whether you’re saving for a dream trip, covering tuition costs, or simply trying to curb impulsive shopping, PennyPilot is here to guide you.
           </p>
-          
+
           <div className="mb-16">
             <h3 className="text-2xl font-semibold text-center mb-8 text-primary">Key Aspects We Focus On</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -263,7 +263,7 @@ export default function HomePage() {
               })}
             </div>
           </div>
-          
+
           <h3 className="text-2xl sm:text-3xl font-bold font-headline text-center my-12 text-primary">Meet the Team</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8">
             {teamMembers.map((member) => (
@@ -358,5 +358,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-    

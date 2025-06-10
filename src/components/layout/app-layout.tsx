@@ -60,6 +60,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 height={40}
                 className="h-8 w-auto group-data-[collapsible=icon]:h-7 group-data-[collapsible=icon]:w-7 group-data-[collapsible=icon]:object-contain"
                 data-ai-hint="compass finance"
+
               />
             </Link>
           </SidebarHeader>
@@ -67,7 +68,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <SidebarContent className="p-2 pt-4">
             <SidebarMenu>
               {navItems.map((item) => (
-                <SidebarMenuItem key={item.href}>
+                <SidebarMenuItem key={item.title}>
                   <Link href={item.href}>
                     <SidebarMenuButton
                       isActive={pathname === item.href}
@@ -86,7 +87,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <SidebarFooter className="p-4">
             <div className="flex items-center gap-3 group-data-[collapsible=icon]:justify-center">
               <Avatar className="h-10 w-10 group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8">
-                <AvatarImage src="/images/penny-pilot-logo.png" alt="User Avatar" data-ai-hint="user avatar" />
+                <AvatarImage src="/images/penny-pilot-logo.png" alt="User Avatar" data-ai-hint="pilot coin" />
                 <AvatarFallback>PP</AvatarFallback>
               </Avatar>
               <div className="flex flex-col group-data-[collapsible=icon]:hidden">

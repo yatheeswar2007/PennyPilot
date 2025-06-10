@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { PlusCircle, Landmark, Trash2, Edit3 } from 'lucide-react';
 import type { BankAccount } from '@/types';
 import LinkAccountDialog from '@/components/accounts/link-account-dialog';
+import EditAccountDialog from '@/components/accounts/edit-account-dialog'; // New import
 
 const initialMockAccounts: BankAccount[] = [
   { id: '1', name: 'HDFC Checking', last4: '1234', balance: 187556.25, currency: 'INR', bankName: 'HDFC Bank' },
@@ -17,6 +18,8 @@ const initialMockAccounts: BankAccount[] = [
 export default function AccountsPage() {
   const [accounts, setAccounts] = useState<BankAccount[]>(initialMockAccounts);
   const [isLinkDialogOpen, setIsLinkDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false); // State for edit dialog
+  const [editingAccount, setEditingAccount] = useState<BankAccount | null>(null); // State for account being edited
 
   const handleAddAccount = (newAccount: Omit<BankAccount, 'id'>) => {
     setAccounts(prev => [...prev, { ...newAccount, id: String(Date.now()) }]);
@@ -24,6 +27,17 @@ export default function AccountsPage() {
 
   const handleDeleteAccount = (accountId: string) => {
     setAccounts(prev => prev.filter(acc => acc.id !== accountId));
+  };
+
+  const handleOpenEditDialog = (account: BankAccount) => {
+    setEditingAccount(account);
+    setIsEditDialogOpen(true);
+  };
+
+  const handleAccountUpdated = (updatedAccount: BankAccount) => {
+    setAccounts(prev => prev.map(acc => acc.id === updatedAccount.id ? updatedAccount : acc));
+    setIsEditDialogOpen(false);
+    setEditingAccount(null);
   };
 
   return (
@@ -59,7 +73,6 @@ export default function AccountsPage() {
                     </CardTitle>
                     <CardDescription>{account.bankName} - Ending in {account.last4}</CardDescription>
                   </div>
-                  {/* Placeholder for account actions dropdown */}
                 </div>
               </CardHeader>
               <CardContent className="flex-grow">
@@ -67,10 +80,9 @@ export default function AccountsPage() {
                   {account.balance < 0 ? '-' : ''}₹{Math.abs(account.balance).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                   <span className="text-sm text-muted-foreground ml-1">{account.currency}</span>
                 </p>
-                {/* Add more account details if needed, like last sync time */}
               </CardContent>
               <CardFooter className="flex justify-end gap-2 border-t pt-4">
-                 <Button variant="ghost" size="sm" onClick={() => alert('Edit account ' + account.name)}>
+                 <Button variant="ghost" size="sm" onClick={() => handleOpenEditDialog(account)}>
                   <Edit3 className="mr-1 h-4 w-4" /> Edit
                 </Button>
                 <Button variant="outline" size="sm" onClick={() => handleDeleteAccount(account.id)}>
@@ -86,6 +98,14 @@ export default function AccountsPage() {
         onClose={() => setIsLinkDialogOpen(false)}
         onAccountLinked={handleAddAccount}
       />
+      {editingAccount && (
+        <EditAccountDialog
+          isOpen={isEditDialogOpen}
+          onClose={() => { setIsEditDialogOpen(false); setEditingAccount(null); }}
+          account={editingAccount}
+          onAccountUpdated={handleAccountUpdated}
+        />
+      )}
     </div>
   );
 }

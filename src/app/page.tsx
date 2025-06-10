@@ -4,8 +4,15 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from 'react';
 
 export default function HomePage() {
+  const [currentYear, setCurrentYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gradient-to-br from-background to-blue-50">
       <main className="flex flex-col items-center justify-center w-full flex-1 px-4 sm:px-20 text-center">
@@ -66,7 +73,7 @@ export default function HomePage() {
 
       <footer className="w-full h-20 flex justify-center items-center border-t mt-12">
         <p className="text-muted-foreground">
-          © {new Date().getFullYear()} PennyPilot Tracker. All rights reserved.
+          {currentYear !== null ? `© ${currentYear} PennyPilot Tracker. All rights reserved.` : 'Loading year...'}
         </p>
       </footer>
     </div>

@@ -309,10 +309,7 @@ export default function HomePage() {
                         <MapPin className="h-7 w-7 text-accent mr-4 mt-1 flex-shrink-0" />
                         <div>
                             <h4 className="font-semibold text-foreground mb-1">Our Location:</h4>
-                            <p className="text-foreground/80">Bharatiya Vidya Bhavan&apos;s Atmakuri Rama Rao School,</p>
-                            <p className="text-foreground/80">Survey No.62, Cable Bridge Rd,</p>
-                            <p className="text-foreground/80">Guttala Begumpet, CBI Colony, Jubilee Hills,</p>
-                            <p className="text-foreground/80">Hyderabad, Telangana 500033</p>
+                            <p className="text-foreground/80">Location details to be added.</p>
                         </div>
                         </div>
                         <div className="flex items-start">

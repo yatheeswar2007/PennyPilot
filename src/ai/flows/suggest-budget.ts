@@ -20,12 +20,12 @@ const SuggestBudgetInputSchema = z.object({
   financialGoals: z
     .string()
     .describe(
-      'A string describing the user\u2019s financial goals (e.g., save for a down payment, reduce debt).' // Escaped quote
+      'A string describing the user’s financial goals (e.g., save for a down payment, reduce debt).'
     ),
   categories: z
     .string()
     .describe(
-      'A JSON string array of spending categories (e.g., food, transportation, entertainment).' // Escaped quote
+      'A JSON string array of spending categories (e.g., food, transportation, entertainment).'
     ),
 });
 export type SuggestBudgetInput = z.infer<typeof SuggestBudgetInputSchema>;
@@ -34,12 +34,12 @@ const SuggestBudgetOutputSchema = z.object({
   categorySuggestions: z
     .string()
     .describe(
-      'A JSON array of budget suggestions for each category, including suggested limit and justification.' // Escaped quote
+      'A JSON array of budget suggestions for each category, including suggested limit and justification.'
     ),
   overspendingAreas: z
     .string()
     .describe(
-      'A JSON array of categories where the user is likely overspending, with explanations.' // Escaped quote
+      'A JSON array of categories where the user is likely overspending, with explanations.'
     ),
 });
 export type SuggestBudgetOutput = z.infer<typeof SuggestBudgetOutputSchema>;
@@ -61,7 +61,7 @@ Categories: {{{categories}}}
 Provide budget suggestions for each category, including a suggested limit and a brief justification.
 Identify any areas where the user is likely overspending, and explain why.
 
-Format your response as a JSON object with \"categorySuggestions\" and \"overspendingAreas\" fields. Each field should contain a JSON array.`, // Escaped quotes
+Format your response as a JSON object with "categorySuggestions" and "overspendingAreas" fields. Each field should contain a JSON array.`,
 });
 
 const suggestBudgetFlow = ai.defineFlow(

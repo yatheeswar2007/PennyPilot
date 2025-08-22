@@ -1,3 +1,4 @@
+
 // src/ai/flows/suggest-budget.ts
 'use server';
 /**
@@ -9,28 +10,28 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import {z} from 'zod';
 
 const SuggestBudgetInputSchema = z.object({
-  spendingHistory: z
+  transactionHistory: z
     .string()
     .describe(
-      'A JSON string representing the user spending history, including category and amount spent.'
+      'A JSON string representing a list of user transactions, each with a description and amount.'
     ),
   financialGoals: z
     .string()
     .describe(
       'A string describing the user’s financial goals (e.g., save for a down payment, reduce debt).'
     ),
-  categories: z
-    .string()
-    .describe(
-      'A JSON string array of spending categories (e.g., food, transportation, entertainment).'
-    ),
 });
 export type SuggestBudgetInput = z.infer<typeof SuggestBudgetInputSchema>;
 
 const SuggestBudgetOutputSchema = z.object({
+  categorizedSpending: z
+    .string()
+    .describe(
+      'A JSON array of objects, where each object represents a spending category and its total amount. e.g., [{"category": "Food", "amount": 550.75}]'
+    ),
   categorySuggestions: z
     .string()
     .describe(
@@ -52,16 +53,28 @@ const prompt = ai.definePrompt({
   name: 'suggestBudgetPrompt',
   input: {schema: SuggestBudgetInputSchema},
   output: {schema: SuggestBudgetOutputSchema},
-  prompt: `You are a personal finance advisor. Analyze the user's spending history and financial goals to suggest optimal budget allocations for each category.
+  prompt: `You are an expert financial analyst. Your task is to analyze a user's raw transaction history, categorize their spending, and then provide actionable budget advice.
 
-Spending History: {{{spendingHistory}}}
-Financial Goals: {{{financialGoals}}}
-Categories: {{{categories}}}
+Follow these steps:
+1.  **Categorize Transactions**: Analyze the list of transactions and group them into meaningful spending categories (e.g., Food & Dining, Transportation, Shopping, Utilities, Entertainment, Health & Wellness, Other).
+2.  **Calculate Category Totals**: Sum the amounts for each category to get a total spending amount per category.
+3.  **Analyze Goals and Spending**: Based on the categorized spending and the user's stated financial goals, formulate budget recommendations.
+4.  **Identify Overspending**: Highlight categories where spending seems excessive relative to typical budgets or the user's goals.
 
-Provide budget suggestions for each category, including a suggested limit and a brief justification.
-Identify any areas where the user is likely overspending, and explain why.
+User's Transaction History:
+{{{transactionHistory}}}
 
-Format your response as a JSON object with "categorySuggestions" and "overspendingAreas" fields. Each field should contain a JSON array.`,
+User's Financial Goals:
+{{{financialGoals}}}
+
+**Output format:**
+You must provide a response in a valid JSON format that adheres to the output schema.
+
+-   **categorizedSpending**: A JSON array of objects, where each object has a "category" (string) and "amount" (number) key.
+-   **categorySuggestions**: A JSON array of objects, each with "category", "suggestedLimit", and "justification".
+-   **overspendingAreas**: A JSON array of objects, each with "category" and "explanation".
+
+Ensure all numbers are valid JSON numbers (no currency symbols).`,
 });
 
 const suggestBudgetFlow = ai.defineFlow(

@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -12,8 +13,7 @@ import { Loader2, AlertCircle } from 'lucide-react';
 
 interface AIBudgetFormProps {
   onSuggestionsReceived: (suggestions: SuggestBudgetOutput | null, isLoading: boolean, error: string | null) => void;
-  exampleSpendingHistory: string;
-  exampleCategories: string;
+  exampleTransactionHistory: string;
 }
 
 function SubmitButton() {
@@ -21,35 +21,41 @@ function SubmitButton() {
   return (
     <Button type="submit" disabled={pending} className="w-full">
       {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-      Get AI Suggestions
+      Analyze & Get Suggestions
     </Button>
   );
 }
 
-export default function AIBudgetForm({ onSuggestionsReceived, exampleSpendingHistory, exampleCategories }: AIBudgetFormProps) {
+export default function AIBudgetForm({ onSuggestionsReceived, exampleTransactionHistory }: AIBudgetFormProps) {
   const initialState: FormState = { message: '', data: undefined };
+  
+  // Create a form action that also calls onSuggestionsReceived with loading state
+  const formActionWithLoading: (payload: FormData) => void = (payload) => {
+    onSuggestionsReceived(null, true, null); // Set loading state
+    (formAction as any)(payload); // Call the original formAction
+  };
+  
   const [state, formAction] = useFormState(getAISuggestions, initialState);
 
   React.useEffect(() => {
-    const { pending } = (formAction as any)?._formState || {}; // Workaround to check pending status if not using useFormStatus in parent
-    if (state.message) {
-      onSuggestionsReceived(state.data || null, pending || false, state.message.startsWith('Success') ? null : state.message);
+    if(state.message) { // This runs when the server action completes
+        onSuggestionsReceived(state.data || null, false, state.message === 'Success' ? null : state.message);
     }
-  }, [state, onSuggestionsReceived, formAction]);
+  }, [state, onSuggestionsReceived]);
 
   return (
-    <form action={formAction} className="space-y-6">
+    <form action={formActionWithLoading} className="space-y-6">
       <div>
-        <Label htmlFor="spendingHistory" className="font-semibold">Spending History (JSON format)</Label>
+        <Label htmlFor="transactionHistory" className="font-semibold">Transaction History (JSON format)</Label>
         <Textarea
-          id="spendingHistory"
-          name="spendingHistory"
-          rows={6}
-          placeholder='e.g., [{"category": "Food", "amount": 300}, {"category": "Rent", "amount": 1200}]'
-          defaultValue={exampleSpendingHistory}
+          id="transactionHistory"
+          name="transactionHistory"
+          rows={8}
+          placeholder='e.g., [{"description": "Starbucks Coffee", "amount": 5.75}]'
+          defaultValue={exampleTransactionHistory}
           className="mt-1"
         />
-        {state?.fields?.spendingHistory && state.message && !state.message.startsWith("Success") && <p className="text-sm text-destructive mt-1">{state.message}</p>}
+        {state?.fields?.transactionHistory && state.message && !state.message.startsWith("Success") && <p className="text-sm text-destructive mt-1">{state.message}</p>}
       </div>
 
       <div>
@@ -63,20 +69,6 @@ export default function AIBudgetForm({ onSuggestionsReceived, exampleSpendingHis
           className="mt-1"
         />
         {state?.fields?.financialGoals && state.message && !state.message.startsWith("Success") && <p className="text-sm text-destructive mt-1">{state.message}</p>}
-
-      </div>
-
-      <div>
-        <Label htmlFor="categories" className="font-semibold">Spending Categories (JSON Array)</Label>
-        <Textarea
-          id="categories"
-          name="categories"
-          rows={4}
-          placeholder='e.g., ["Groceries", "Utilities", "Entertainment", "Travel"]'
-          defaultValue={exampleCategories}
-          className="mt-1"
-        />
-        {state?.fields?.categories && state.message && !state.message.startsWith("Success") && <p className="text-sm text-destructive mt-1">{state.message}</p>}
       </div>
       
       {state.message && !state.message.startsWith("Success") && state.issues && (

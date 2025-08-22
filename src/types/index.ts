@@ -47,3 +47,8 @@ export interface NavItem {
   label?: string;
   disabled?: boolean;
 }
+
+export interface CategorizedSpending {
+  category: string;
+  amount: number;
+}

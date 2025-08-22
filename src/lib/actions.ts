@@ -1,12 +1,12 @@
+
 'use server';
 
 import { suggestBudget, type SuggestBudgetInput, type SuggestBudgetOutput } from '@/ai/flows/suggest-budget';
 import { z } from 'zod';
 
 const SuggestBudgetFormSchema = z.object({
-  spendingHistory: z.string().min(1, "Spending history is required."),
+  transactionHistory: z.string().min(1, "Transaction history is required."),
   financialGoals: z.string().min(1, "Financial goals are required."),
-  categories: z.string().min(1, "Categories are required."),
 });
 
 export interface FormState {
@@ -21,9 +21,8 @@ export async function getAISuggestions(
   formData: FormData
 ): Promise<FormState> {
   const validatedFields = SuggestBudgetFormSchema.safeParse({
-    spendingHistory: formData.get('spendingHistory'),
+    transactionHistory: formData.get('transactionHistory'),
     financialGoals: formData.get('financialGoals'),
-    categories: formData.get('categories'),
   });
 
   if (!validatedFields.success) {
@@ -32,9 +31,8 @@ export async function getAISuggestions(
       message: 'Invalid form data.',
       issues,
       fields: {
-        spendingHistory: formData.get('spendingHistory')?.toString() ?? '',
+        transactionHistory: formData.get('transactionHistory')?.toString() ?? '',
         financialGoals: formData.get('financialGoals')?.toString() ?? '',
-        categories: formData.get('categories')?.toString() ?? '',
       }
     };
   }
@@ -42,23 +40,18 @@ export async function getAISuggestions(
   const inputData: SuggestBudgetInput = validatedFields.data;
 
   try {
-    // Validate JSON strings before passing to AI
+    // Validate JSON string before passing to AI
     try {
-      JSON.parse(inputData.spendingHistory);
+      JSON.parse(inputData.transactionHistory);
     } catch (e) {
-      return { message: "Spending history is not valid JSON.", fields: inputData };
+      return { message: "Transaction history is not valid JSON.", fields: inputData };
     }
-    try {
-      JSON.parse(inputData.categories);
-    } catch (e) {
-      return { message: "Categories list is not valid JSON array.", fields: inputData };
-    }
-
 
     const result = await suggestBudget(inputData);
-    return { message: 'Successfully generated budget suggestions.', data: result };
+    return { message: 'Success', data: result };
   } catch (error) {
     console.error('Error getting AI suggestions:', error);
-    return { message: 'Failed to get AI suggestions. Please try again.', fields: inputData };
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
+    return { message: `Failed to get AI suggestions: ${errorMessage}`, fields: inputData };
   }
 }

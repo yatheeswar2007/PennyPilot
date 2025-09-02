@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { CheckCircle, ShieldCheck, ListChecks as ListChecksIcon, BellDot, BarChart3, Users, MapPin, Mail, Edit2, Search, Zap, Eye, Settings2, TrendingUp, Goal as GoalIcon, Briefcase, Building, MessageSquareQuote, Lightbulb, Sparkles, Rocket, Handshake, PackageCheck } from 'lucide-react';
+import Image from "next/image";
 
 const teamMembers = [
   { name: "Nimmagadda Yatheeswar", dataAiHint: "person portrait" },
@@ -13,7 +14,7 @@ const teamMembers = [
   { name: "Hrudhay", dataAiHint: "person portrait" },
   { name: "Devyansh", dataAiHint: "person portrait" },
   { name: "Havisha", dataAiHint: "person portrait" },
-  { name: "Fragnya", dataAiHint: "person portrait" },
+  { name: "Fragnya", dataAiHint: "person portrait", imageUrl: "https://picsum.photos/128/128" },
 ];
 
 const navLinks = [
@@ -252,12 +253,16 @@ export default function HomePage() {
 
           <h3 className="text-2xl sm:text-3xl font-bold font-headline text-center my-12 text-primary">Meet the Team</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8">
-            {teamMembers.map((member) => (
+            {teamMembers.map((member: any) => (
               <div key={member.name} className="group text-center">
                 <div className="relative w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-3 rounded-full overflow-hidden shadow-lg border-2 border-primary/20 transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl cursor-pointer">
-                  <div className="w-full h-full bg-gray-300 flex items-center justify-center">
-                    <span className="text-sm text-muted-foreground">Photo</span>
-                  </div>
+                  {member.imageUrl ? (
+                    <Image src={member.imageUrl} alt={member.name} width={128} height={128} className="w-full h-full object-cover" data-ai-hint={member.dataAiHint} />
+                  ) : (
+                    <div className="w-full h-full bg-gray-300 flex items-center justify-center">
+                      <span className="text-sm text-muted-foreground">Photo</span>
+                    </div>
+                  )}
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <p className="text-white text-xs sm:text-sm p-1 text-center">Class 12 Student</p>
                   </div>
@@ -309,7 +314,7 @@ export default function HomePage() {
                         <MapPin className="h-7 w-7 text-accent mr-4 mt-1 flex-shrink-0" />
                         <div>
                             <h4 className="font-semibold text-foreground mb-1">Our Location:</h4>
-                            <p className="text-foreground/80">Location details to be added.</p>
+                            <p className="text-foreground/80"></p>
                         </div>
                         </div>
                         <div className="flex items-start">

@@ -59,7 +59,7 @@ export default function HomePage() {
   const whyChooseReasons = [
     { title: "Simplicity Meets Power", description: "You don’t need to be a finance expert—our step-by-step setup walks you through everything.", icon: Zap },
     { title: "Real-Time Control", description: "No more waiting until month-end to realize you blew your budget. PennyPilot’s notifications keep you informed every day.", icon: Eye },
-    { title: "Fully Customizable", description: "Whether you run your own small business or live on a student stipend, PennyPilot adapts to your unique financial reality.", icon: Settings2 },
+    { title: "Fully Customizable", description: "Whether you run a small business, are a student on a stipend, or manage a household, PennyPilot adapts to your unique financial reality.", icon: Settings2 },
     { title: "Data-Driven Decisions", description: "Smart charts and spending insights show you exactly where you can cut back and where you have wiggle room.", icon: Lightbulb },
     { title: "Absolute Security", description: "Bank-grade encryption, two-factor authentication, and zero-knowledge policies mean your data stays yours.", icon: ShieldCheck },
     { title: "Always Improving", description: "We constantly add new features based on user feedback to make PennyPilot the best budgeting tool for you.", icon: Sparkles }
@@ -329,7 +329,7 @@ export default function HomePage() {
                 <div className="bg-slate-100 p-6 rounded-lg h-full flex flex-col items-center justify-center text-center">
                     <MessageSquareQuote className="h-16 w-16 text-primary mb-4" />
                     <h3 className="text-xl font-semibold text-primary mb-2">Have Questions?</h3>
-                    <p className="text-sm text-muted-foreground mb-4">We&apos;re here to help! Reach out via email or connect with us on social media (links coming soon).</p>
+                    <p className="text-sm text-muted-foreground mb-4">We're here to help! Reach out via email or connect with us on social media (links coming soon).</p>
                     <div className="w-full h-40 bg-slate-200 rounded-md flex items-center justify-center text-muted-foreground">
                         <MapPin className="h-12 w-12" />
                         <p className="ml-2">Map Placeholder</p>
@@ -348,5 +348,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-    

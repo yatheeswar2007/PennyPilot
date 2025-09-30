@@ -14,12 +14,11 @@ const teamMembers = [
   { name: "Hrudhay", dataAiHint: "person portrait" },
   { name: "Devyansh", dataAiHint: "person portrait" },
   { name: "Havisha", dataAiHint: "person portrait" },
-  { name: "Fragnya", dataAiHint: "person portrait", imageUrl: "https://picsum.photos/128/128" },
+  { name: "Fragnya", dataAiHint: "person portrait", imageUrl: "https://picsum.photos/seed/fragnya/128/128" },
 ];
 
 const navLinks = [
   { title: "Features", href: "#features" },
-  { title: "Why PennyPilot", href: "#why-choose" },
   { title: "About Us", href: "#about-us" },
   { title: "Get Started", href: "#how-it-works" },
   { title: "Contact", href: "#contact" },
@@ -54,15 +53,6 @@ export default function HomePage() {
     { step: 2, title: "Create Your Budget Categories", description: "Think of spending “buckets”: Food, Utilities, Entertainment, Transportation, and so on. For each bucket, decide on a monthly or yearly limit.", icon: ListChecksIcon },
     { step: 3, title: "Track & Adjust", description: "Every transaction automatically appears under its category. PennyPilot sends you an alert once you hit 80% of any category so you can pause or reassign funds. If needed, tweak your category limits mid-cycle.", icon: Settings2 },
     { step: 4, title: "Review & Reflect", description: "At the end of each month, glance at the dashboard to see where you overspent (if anywhere) and where you underspent. Adjust your next month’s limits based on actual data. Build stronger saving habits over time.", icon: Search }
-  ];
-
-  const whyChooseReasons = [
-    { title: "Simplicity Meets Power", description: "You don’t need to be a finance expert—our step-by-step setup walks you through everything.", icon: Zap },
-    { title: "Real-Time Control", description: "No more waiting until month-end to realize you blew your budget. PennyPilot’s notifications keep you informed every day.", icon: Eye },
-    { title: "Fully Customizable", description: "Whether you run a small business, are a student on a stipend, or manage a household, PennyPilot adapts to your unique financial reality.", icon: Settings2 },
-    { title: "Data-Driven Decisions", description: "Smart charts and spending insights show you exactly where you can cut back and where you have wiggle room.", icon: Lightbulb },
-    { title: "Absolute Security", description: "Bank-grade encryption, two-factor authentication, and zero-knowledge policies mean your data stays yours.", icon: ShieldCheck },
-    { title: "Always Improving", description: "We constantly add new features based on user feedback to make PennyPilot the best budgeting tool for you.", icon: Sparkles }
   ];
 
   const keyAspects = [
@@ -199,27 +189,6 @@ export default function HomePage() {
                 </Card>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose PennyPilot Section */}
-       <section id="why-choose" className="py-16 sm:py-20 bg-primary/5">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold font-headline text-center mb-12 text-primary">Why Choose PennyPilot?</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {whyChooseReasons.map((reason) => {
-              const Icon = reason.icon;
-              return (
-              <div key={reason.title} className="p-6 bg-card rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center text-center">
-                 <div className="p-4 bg-accent/10 rounded-full mb-4 inline-block">
-                    <Icon className="h-10 w-10 text-accent" />
-                 </div>
-                <h3 className="text-xl font-semibold text-primary mb-2">{reason.title}</h3>
-                <p className="text-sm text-card-foreground/80">{reason.description}</p>
-              </div>
-              );
-            })}
           </div>
         </div>
       </section>

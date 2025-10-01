@@ -14,7 +14,6 @@ const teamMembers = [
   { name: "Hrudhay", dataAiHint: "person portrait" },
   { name: "Devyansh", dataAiHint: "person portrait" },
   { name: "Havisha", dataAiHint: "person portrait" },
-  { name: "Fragnya", dataAiHint: "person portrait", imageUrl: "https://picsum.photos/seed/fragnya/128/128" },
 ];
 
 const navLinks = [
@@ -317,3 +316,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+    

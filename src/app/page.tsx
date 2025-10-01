@@ -14,6 +14,7 @@ const teamMembers = [
   { name: "Hrudhay", dataAiHint: "person portrait" },
   { name: "Devyansh", dataAiHint: "person portrait" },
   { name: "Havisha", dataAiHint: "person portrait" },
+  { name: "Pragnya", dataAiHint: "person portrait" },
 ];
 
 const navLinks = [
@@ -317,4 +318,5 @@ export default function HomePage() {
   );
 }
 
+    
     

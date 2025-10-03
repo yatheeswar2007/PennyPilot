@@ -9,9 +9,11 @@ import { Paperclip, Send, X, Loader2, Image as ImageIcon } from 'lucide-react';
 import ChatMessage from './chat-message';
 import { chat, type ChatInput, type ChatOutput } from '@/ai/flows/chat-flow';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
+import { cn } from '@/lib/utils';
 
 interface ChatWindowProps {
   closeChat: () => void;
+  isEmbedded?: boolean;
 }
 
 type Message = {
@@ -20,7 +22,7 @@ type Message = {
   data?: ChatOutput['transactions'];
 };
 
-const ChatWindow: React.FC<ChatWindowProps> = ({ closeChat }) => {
+const ChatWindow: React.FC<ChatWindowProps> = ({ closeChat, isEmbedded = false }) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'bot',
@@ -90,14 +92,21 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ closeChat }) => {
   };
 
   return (
-    <div className="fixed bottom-24 right-6 z-50 w-[90vw] max-w-sm h-[70vh] max-h-[600px] bg-card shadow-2xl rounded-xl border flex flex-col transition-all duration-300 animate-in slide-in-from-bottom-5">
+    <div className={cn(
+      "bg-card shadow-2xl rounded-xl border flex flex-col transition-all duration-300",
+      isEmbedded 
+        ? "w-full h-full"
+        : "fixed bottom-24 right-6 z-50 w-[90vw] max-w-sm h-[70vh] max-h-[600px] animate-in slide-in-from-bottom-5"
+    )}>
       {/* Header */}
-      <div className="flex items-center justify-between p-3 border-b">
-        <h3 className="text-lg font-semibold text-primary">Penny Assistant</h3>
-        <Button variant="ghost" size="icon" onClick={closeChat}>
-          <X className="w-5 h-5" />
-        </Button>
-      </div>
+      {!isEmbedded && (
+        <div className="flex items-center justify-between p-3 border-b">
+          <h3 className="text-lg font-semibold text-primary">Penny Assistant</h3>
+          <Button variant="ghost" size="icon" onClick={closeChat}>
+            <X className="w-5 h-5" />
+          </Button>
+        </div>
+      )}
 
       {/* Messages */}
       <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>

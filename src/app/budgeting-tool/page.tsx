@@ -4,11 +4,11 @@
 import React from 'react';
 import { CardDescription } from "@/components/ui/card";
 import { Lightbulb } from 'lucide-react';
-import Chatbot from '@/components/chatbot/chatbot';
+import ChatWindow from '@/components/chatbot/chat-window';
 
 export default function AIBudgetingToolPage() {
   return (
-    <div className="container mx-auto py-8 h-full flex flex-col">
+    <div className="container mx-auto py-8 h-[calc(100vh-10rem)] flex flex-col">
       <div className="flex items-center mb-4">
         <Lightbulb className="h-8 w-8 mr-3 text-primary" />
         <h1 className="text-3xl font-bold font-headline">Penny Assistant</h1>
@@ -17,9 +17,9 @@ export default function AIBudgetingToolPage() {
         Your personal AI for financial analysis. Upload a screenshot of your transactions, and Penny will automatically categorize your spending and create a visual summary for you. You can also ask any finance-related questions.
       </CardDescription>
       
-      {/* The chatbot is now the main feature of this page */}
-      <div className="flex-grow flex items-center justify-center">
-         <Chatbot />
+      {/* The ChatWindow is now embedded directly and takes up the remaining space */}
+      <div className="flex-grow relative">
+         <ChatWindow closeChat={() => {}} isEmbedded={true} />
       </div>
 
     </div>

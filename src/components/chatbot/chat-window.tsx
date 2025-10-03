@@ -26,7 +26,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ closeChat, isEmbedded = false }
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'bot',
-      text: "Hello! I'm Penny, your AI financial assistant. Ask me a question or upload a transaction screenshot to get started!",
+      text: "Hello! I'm Penny. Please paste your spending data or upload a transaction screenshot, and I'll categorize it and show you a visual summary.",
     },
   ]);
   const [inputValue, setInputValue] = useState('');
@@ -170,7 +170,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ closeChat, isEmbedded = false }
           </Button>
           <Input
             type="text"
-            placeholder="Ask Penny..."
+            placeholder="Paste spending data or attach an image..."
             value={inputValue}
             onChange={e => setInputValue(e.target.value)}
             onKeyPress={e => e.key === 'Enter' && !isLoading && handleSendMessage()}

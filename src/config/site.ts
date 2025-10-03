@@ -1,12 +1,12 @@
 
 import type { NavItem } from '@/types';
-import { Landmark, ListChecks, Lightbulb, SettingsIcon as Settings, Info, Users, MessageSquare, ShieldCheck, TrendingUp, BellDot, Goal, Sparkles, Zap, CheckCircle, LayoutDashboard } from 'lucide-react'; // Added LayoutDashboard, removed HomeIcon
+import { Landmark, ListChecks, Lightbulb, SettingsIcon as Settings, Info, Users, MessageSquare, ShieldCheck, TrendingUp, BellDot, Goal, Sparkles, Zap, CheckCircle, LayoutDashboard, Bot } from 'lucide-react'; // Added LayoutDashboard, removed HomeIcon
 
 export const navItems: NavItem[] = [
   {
-    title: 'Home',
-    href: '/accounts', // Changed from '/' to '/accounts'
-    icon: LayoutDashboard, // Changed to LayoutDashboard for an "app home" feel
+    title: 'Dashboard',
+    href: '/accounts', 
+    icon: LayoutDashboard, 
   },
   {
     title: 'Accounts',
@@ -17,6 +17,11 @@ export const navItems: NavItem[] = [
     title: 'Budget',
     href: '/budget',
     icon: ListChecks,
+  },
+  {
+    title: 'AI Budgeting',
+    href: '/ai-budgeting',
+    icon: Bot,
   },
   {
     title: 'Settings',

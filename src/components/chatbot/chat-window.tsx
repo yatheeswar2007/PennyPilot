@@ -5,14 +5,15 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Paperclip, Send, X, Loader2, Image as ImageIcon } from 'lucide-react';
+import { Paperclip, Send, X, Loader2 } from 'lucide-react';
 import ChatMessage from './chat-message';
 import { chat, type ChatInput, type ChatOutput } from '@/ai/flows/chat-flow';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { cn } from '@/lib/utils';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 
 interface ChatWindowProps {
-  closeChat: () => void;
+  closeChat?: () => void;
   isEmbedded?: boolean;
 }
 
@@ -69,6 +70,10 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ closeChat, isEmbedded = false }
 
     const chatInput: ChatInput = { text: userMessageText, image: imagePreview || undefined };
     setImagePreview(null); // Clear preview after sending
+    if (imageInputRef.current) {
+        imageInputRef.current.value = "";
+    }
+
 
     try {
       const result = await chat(chatInput);
@@ -92,98 +97,111 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ closeChat, isEmbedded = false }
       setIsLoading(false);
     }
   };
+  
+  const ChatContainer = isEmbedded ? Card : 'div';
+  const chatContainerProps = isEmbedded ? { className: "h-full flex flex-col" } : {};
+
 
   return (
     <div className={cn(
-      "bg-card shadow-2xl rounded-xl border flex flex-col transition-all duration-300",
+      "flex flex-col transition-all duration-300",
       isEmbedded 
         ? "w-full h-full"
-        : "fixed bottom-24 right-6 z-50 w-[90vw] max-w-sm h-[70vh] max-h-[600px] animate-in slide-in-from-bottom-5"
+        : "fixed bottom-24 right-6 z-50 w-[90vw] max-w-sm h-[70vh] max-h-[600px] bg-card shadow-2xl rounded-xl border animate-in slide-in-from-bottom-5"
     )}>
-      {/* Header */}
-      {!isEmbedded && (
-        <div className="flex items-center justify-between p-3 border-b">
-          <h3 className="text-lg font-semibold text-primary">Penny Assistant</h3>
-          <Button variant="ghost" size="icon" onClick={closeChat}>
-            <X className="w-5 h-5" />
-          </Button>
-        </div>
-      )}
-
-      {/* Messages */}
-      <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
-        {messages.map((msg, index) => (
-          <ChatMessage key={index} message={msg} />
-        ))}
-        {isLoading && (
-          <div className="flex justify-start items-start gap-3 my-4">
-             <div className="w-8 h-8 border-2 border-primary rounded-full flex items-center justify-center bg-primary text-primary-foreground">
-                <Loader2 className="w-5 h-5 animate-spin" />
-             </div>
-             <div className="bg-card text-card-foreground rounded-xl px-4 py-3 shadow max-w-sm rounded-tl-none">
-                <p className="text-sm">Penny is thinking...</p>
-             </div>
-          </div>
-        )}
-      </ScrollArea>
-      
-      {error && (
-        <div className='p-4 pt-0'>
-            <Alert variant="destructive">
-                <AlertTitle>Error</AlertTitle>
-                <AlertDescription>{error}</AlertDescription>
-            </Alert>
-        </div>
-      )}
-
-      {/* Input Area */}
-      <div className="p-3 border-t bg-background/50 rounded-b-xl">
-        {imagePreview && (
-          <div className="relative mb-2 w-24 h-24 rounded-md overflow-hidden border">
-            <img src={imagePreview} alt="Selected attachment" className="w-full h-full object-cover" />
-            <Button
-              variant="destructive"
-              size="icon"
-              className="absolute top-1 right-1 h-6 w-6 rounded-full"
-              onClick={() => {
-                setImagePreview(null);
-                if(imageInputrRef.current) imageInputRef.current.value = "";
-              }}
-            >
-              <X className="h-4 w-4" />
+       <ChatContainer {...chatContainerProps}>
+        {/* Header */}
+        {!isEmbedded && closeChat && (
+            <div className="flex items-center justify-between p-3 border-b">
+            <h3 className="text-lg font-semibold text-primary">Penny Assistant</h3>
+            <Button variant="ghost" size="icon" onClick={closeChat}>
+                <X className="w-5 h-5" />
             </Button>
-          </div>
+            </div>
         )}
-        <div className="flex items-center gap-2">
-          <input
-            type="file"
-            accept="image/*"
-            ref={imageInputRef}
-            onChange={handleImageChange}
-            className="hidden"
-          />
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => imageInputRef.current?.click()}
-            aria-label="Attach image"
-          >
-            <Paperclip className="w-5 h-5" />
-          </Button>
-          <Input
-            type="text"
-            placeholder="Paste spending data or attach an image..."
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-            onKeyPress={e => e.key === 'Enter' && !isLoading && handleSendMessage()}
-            className="flex-1"
-            disabled={isLoading}
-          />
-          <Button onClick={handleSendMessage} disabled={isLoading || (!inputValue.trim() && !imagePreview)} aria-label="Send message">
-            <Send className="w-5 h-5" />
-          </Button>
+
+        {isEmbedded && (
+            <CardHeader>
+                <CardTitle>AI Budgeting Assistant</CardTitle>
+            </CardHeader>
+        )}
+
+
+        {/* Messages */}
+        <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
+            {messages.map((msg, index) => (
+            <ChatMessage key={index} message={msg} />
+            ))}
+            {isLoading && (
+            <div className="flex justify-start items-start gap-3 my-4">
+                <div className="w-8 h-8 border-2 border-primary rounded-full flex items-center justify-center bg-primary text-primary-foreground">
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                </div>
+                <div className="bg-card text-card-foreground rounded-xl px-4 py-3 shadow max-w-sm rounded-tl-none">
+                    <p className="text-sm">Penny is thinking...</p>
+                </div>
+            </div>
+            )}
+        </ScrollArea>
+        
+        {error && (
+            <div className='p-4 pt-0'>
+                <Alert variant="destructive">
+                    <AlertTitle>Error</AlertTitle>
+                    <AlertDescription>{error}</AlertDescription>
+                </Alert>
+            </div>
+        )}
+
+        {/* Input Area */}
+        <div className={cn("p-3 border-t", isEmbedded ? 'mt-auto' : 'bg-background/50 rounded-b-xl')}>
+            {imagePreview && (
+            <div className="relative mb-2 w-24 h-24 rounded-md overflow-hidden border">
+                <img src={imagePreview} alt="Selected attachment" className="w-full h-full object-cover" />
+                <Button
+                variant="destructive"
+                size="icon"
+                className="absolute top-1 right-1 h-6 w-6 rounded-full"
+                onClick={() => {
+                    setImagePreview(null);
+                    if(imageInputRef.current) imageInputRef.current.value = "";
+                }}
+                >
+                <X className="h-4 w-4" />
+                </Button>
+            </div>
+            )}
+            <div className="flex items-center gap-2">
+            <input
+                type="file"
+                accept="image/*"
+                ref={imageInputRef}
+                onChange={handleImageChange}
+                className="hidden"
+            />
+            <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => imageInputRef.current?.click()}
+                aria-label="Attach image"
+            >
+                <Paperclip className="w-5 h-5" />
+            </Button>
+            <Input
+                type="text"
+                placeholder="Paste spending data or attach an image..."
+                value={inputValue}
+                onChange={e => setInputValue(e.target.value)}
+                onKeyPress={e => e.key === 'Enter' && !isLoading && handleSendMessage()}
+                className="flex-1"
+                disabled={isLoading}
+            />
+            <Button onClick={handleSendMessage} disabled={isLoading || (!inputValue.trim() && !imagePreview)} aria-label="Send message">
+                <Send className="w-5 h-5" />
+            </Button>
+            </div>
         </div>
-      </div>
+      </ChatContainer>
     </div>
   );
 };

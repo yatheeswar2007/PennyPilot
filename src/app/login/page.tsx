@@ -1,8 +1,8 @@
-
 "use client";
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,15 +34,12 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="container mx-auto py-12 flex flex-col justify-center items-center min-h-[calc(100vh-8rem)]">
+    <div className="container mx-auto py-12 flex flex-col justify-center items-center min-h-screen bg-background">
        <Link href="/" className="mb-8">
-          <span className="text-4xl font-bold text-primary">PennyPilot</span>
+          <Image src="/logo.svg" alt="PennyPilot Logo" width={200} height={50} />
       </Link>
-      <Card className="w-full max-w-md shadow-xl">
+      <Card className="w-full max-w-md shadow-xl bg-card">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-4">
-            <LogIn className="h-12 w-12 text-primary" />
-          </div>
           <CardTitle className="text-3xl font-bold font-headline">Welcome Back!</CardTitle>
           <CardDescription>Log in to access your PennyPilot dashboard.</CardDescription>
         </CardHeader>
@@ -91,5 +88,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
-    

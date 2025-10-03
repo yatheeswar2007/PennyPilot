@@ -7,10 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"; // Removed AvatarImage
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User, Bell, Palette, Shield } from 'lucide-react';
 
 export default function SettingsPage() {
+  // NOTE: This is a static implementation. In a real app, you'd use state and handlers
+  // to manage dark mode and other settings.
+
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-3xl font-bold mb-8 font-headline">Settings</h1>
@@ -24,7 +27,7 @@ export default function SettingsPage() {
             </CardHeader>
             <CardContent className="space-y-4">
                <Avatar className="h-24 w-24 mx-auto mb-4">
-                {/* Removed AvatarImage as no logo is available. Using fallback. */}
+                <AvatarImage src="/logo-icon.svg" alt="PennyPilot User" />
                 <AvatarFallback className="text-3xl">PP</AvatarFallback>
               </Avatar>
               <div>
@@ -33,7 +36,7 @@ export default function SettingsPage() {
               </div>
               <div>
                 <Label htmlFor="email">Email Address</Label>
-                <Input id="email" type="email" defaultValue="user@pennypilot.com" />
+                <Input id="email" type="email" defaultValue="user@pennypilot.com" readOnly />
               </div>
               <Button className="w-full">Update Profile</Button>
             </CardContent>
@@ -47,16 +50,16 @@ export default function SettingsPage() {
               <CardDescription>Configure your notification preferences.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="budgetAlerts">Budget Alerts</Label>
+              <div className="flex items-center justify-between p-2 rounded-md hover:bg-muted">
+                <Label htmlFor="budgetAlerts" className="font-normal">Budget Alerts</Label>
                 <Button variant="outline" size="sm">Toggle</Button>
               </div>
-              <div className="flex items-center justify-between">
-                <Label htmlFor="transactionAlerts">Transaction Notifications</Label>
+              <div className="flex items-center justify-between p-2 rounded-md hover:bg-muted">
+                <Label htmlFor="transactionAlerts" className="font-normal">Transaction Notifications</Label>
                 <Button variant="outline" size="sm">Toggle</Button>
               </div>
               <Separator />
-               <p className="text-sm text-muted-foreground">More notification settings coming soon.</p>
+               <p className="text-sm text-muted-foreground p-2">More notification settings coming soon.</p>
             </CardContent>
           </Card>
 
@@ -66,11 +69,18 @@ export default function SettingsPage() {
               <CardDescription>Customize the look and feel of the app.</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center justify-between">
-                <Label htmlFor="theme">Theme</Label>
-                <Button variant="outline">Toggle Dark Mode</Button>
+              <div className="flex items-center justify-between p-2 rounded-md hover:bg-muted">
+                <Label htmlFor="theme" className="font-normal">Toggle Dark/Light Mode</Label>
+                 <Button 
+                    variant="outline"
+                    onClick={() => {
+                        document.documentElement.classList.toggle('dark');
+                    }}
+                >
+                    Toggle Theme
+                </Button>
               </div>
-               <p className="text-sm text-muted-foreground mt-4">Theme customization options will be available here.</p>
+               <p className="text-sm text-muted-foreground mt-4 p-2">Theme customization options will be available here.</p>
             </CardContent>
           </Card>
           
@@ -89,5 +99,3 @@ export default function SettingsPage() {
     </div>
   );
 }
-
-    

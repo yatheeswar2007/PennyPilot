@@ -69,12 +69,12 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* Sticky Navigation Bar */}
       <nav className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'bg-background/90 shadow-lg backdrop-blur-md' : 'bg-transparent'}`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
           <Link href="/" className="flex items-center">
-            <span className="text-2xl font-bold text-primary">PennyPilot</span>
+             <Image src="/logo.svg" alt="PennyPilot Logo" width={160} height={40} />
           </Link>
           <div className="flex items-center">
             <div className="hidden md:flex space-x-4 mr-4">
@@ -107,8 +107,8 @@ export default function HomePage() {
       {/* Hero Section */}
       <section id="home" className="py-16 sm:py-24 bg-gradient-to-br from-primary/10 via-background to-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="mb-8 inline-block">
-            <h1 className="text-5xl font-bold text-primary">PennyPilot</h1>
+           <div className="mb-8 inline-block">
+            <Image src="/logo.svg" alt="PennyPilot Logo" width={240} height={60} />
           </div>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold font-headline text-primary mb-6">
             Navigate Your Wallet. Master Your Budget.
@@ -149,14 +149,14 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-16 sm:py-20 bg-slate-50">
+      <section id="features" className="py-16 sm:py-20 bg-background/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold font-headline text-center mb-12 text-primary">Powerful Features, Simple Control</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featureList.map((feature) => {
               const Icon = feature.icon;
               return (
-              <Card key={feature.title} className="hover:shadow-xl transition-shadow duration-300 flex flex-col">
+              <Card key={feature.title} className="hover:shadow-xl transition-shadow duration-300 flex flex-col bg-card">
                 <CardHeader>
                   <div className="flex items-center mb-3">
                     <Icon className="h-10 w-10 text-accent mr-4" />
@@ -200,7 +200,7 @@ export default function HomePage() {
       </section>
 
       {/* About Us Section - Moved after Why Choose */}
-      <section id="about-us" className="py-16 sm:py-20">
+      <section id="about-us" className="py-16 sm:py-20 bg-background/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold font-headline text-center mb-4 text-primary">About Us</h2>
           <p className="text-center text-lg text-foreground/80 max-w-3xl mx-auto mb-12">
@@ -234,7 +234,7 @@ export default function HomePage() {
                   {member.imageUrl ? (
                     <Image src={member.imageUrl} alt={member.name} width={128} height={128} className="w-full h-full object-cover" data-ai-hint={member.dataAiHint} />
                   ) : (
-                    <div className="w-full h-full bg-gray-300 flex items-center justify-center">
+                    <div className="w-full h-full bg-muted flex items-center justify-center">
                       <span className="text-sm text-muted-foreground">Photo</span>
                     </div>
                   )}
@@ -301,11 +301,11 @@ export default function HomePage() {
                         </div>
                     </div>
                 </div>
-                <div className="bg-slate-100 p-6 rounded-lg h-full flex flex-col items-center justify-center text-center">
+                <div className="bg-muted p-6 rounded-lg h-full flex flex-col items-center justify-center text-center">
                     <MessageSquareQuote className="h-16 w-16 text-primary mb-4" />
                     <h3 className="text-xl font-semibold text-primary mb-2">Have Questions?</h3>
                     <p className="text-sm text-muted-foreground mb-4">We're here to help! Reach out via email or connect with us on social media (links coming soon).</p>
-                    <div className="w-full h-40 bg-slate-200 rounded-md flex items-center justify-center text-muted-foreground">
+                    <div className="w-full h-40 bg-muted-foreground/20 rounded-md flex items-center justify-center text-muted-foreground">
                         <MapPin className="h-12 w-12" />
                         <p className="ml-2">Map Placeholder</p>
                     </div>
@@ -315,9 +315,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer className="w-full py-8 flex justify-center items-center border-t bg-slate-50">
+      <footer className="w-full py-8 flex justify-center items-center border-t bg-background/50">
         <p className="text-muted-foreground">
-          {currentYear !== null ? `© ${currentYear} PennyPilot Tracker. All rights reserved.` : 'Loading year...'}
+          {currentYear !== null ? `© ${currentYear} PennyPilot Tracker. All rights reserved.` : '...'}
         </p>
       </footer>
     </div>

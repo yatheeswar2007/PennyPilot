@@ -3,6 +3,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation"; // Added useRouter
 import {
   SidebarProvider,
@@ -18,7 +19,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"; // Removed AvatarImage
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { navItems } from "@/config/site";
 import { LogOut } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -46,11 +47,11 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider defaultOpen={true}>
       <div className="flex min-h-screen w-full">
-        <Sidebar collapsible="icon" className="border-r">
+        <Sidebar collapsible="icon" className="border-r bg-sidebar text-sidebar-foreground">
           <SidebarHeader className="p-4">
             <Link href="/" className="flex items-center justify-center group-data-[collapsible=icon]:justify-center">
-              <span className="text-xl font-bold text-primary group-data-[collapsible=icon]:hidden">PennyPilot</span>
-              <span className="text-xl font-bold text-primary hidden group-data-[collapsible=icon]:inline">PP</span>
+               <Image src="/logo.svg" alt="PennyPilot Logo" width={140} height={40} className="group-data-[collapsible=icon]:hidden" />
+               <Image src="/logo-icon.svg" alt="PennyPilot Icon" width={32} height={32} className="hidden group-data-[collapsible=icon]:block" />
             </Link>
           </SidebarHeader>
           <Separator className="my-0 group-data-[collapsible=icon]:mx-2" />
@@ -77,7 +78,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <SidebarFooter className="p-4">
             <div className="flex items-center gap-3 group-data-[collapsible=icon]:justify-center">
               <Avatar className="h-10 w-10 group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8">
-                {/* Removed AvatarImage as no logo is available */}
+                 <AvatarImage src="/logo-icon.svg" alt="User" />
                 <AvatarFallback>PP</AvatarFallback>
               </Avatar>
               <div className="flex flex-col group-data-[collapsible=icon]:hidden">
@@ -100,9 +101,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               {/* Header actions like notifications, theme toggle, etc. */}
             </div>
           </header>
-          <main className="flex-1 overflow-y-auto p-6">
-            {children}
-          </main>
+          <main className="flex-1 overflow-y-auto p-6">{children}</main>
         </SidebarInset>
       </div>
     </SidebarProvider>

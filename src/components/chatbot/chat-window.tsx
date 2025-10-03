@@ -19,6 +19,7 @@ interface ChatWindowProps {
 type Message = {
   role: 'user' | 'bot';
   text: string;
+  categorizedText?: string;
   data?: ChatOutput['transactions'];
 };
 
@@ -26,7 +27,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ closeChat, isEmbedded = false }
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'bot',
-      text: "Hello! I'm Penny. Please paste your spending data or upload a transaction screenshot, and I'll categorize it and show you a visual summary.",
+      text: "Hello! I'm Penny. Please paste your spending data or upload a transaction screenshot, and I'll categorize it for you.",
     },
   ]);
   const [inputValue, setInputValue] = useState('');
@@ -74,6 +75,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ closeChat, isEmbedded = false }
       const botMessage: Message = {
         role: 'bot',
         text: result.response,
+        categorizedText: result.categorizedText,
         data: result.transactions,
       };
       setMessages(prev => [...prev, botMessage]);
@@ -145,7 +147,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ closeChat, isEmbedded = false }
               className="absolute top-1 right-1 h-6 w-6 rounded-full"
               onClick={() => {
                 setImagePreview(null);
-                if(imageInputRef.current) imageInputRef.current.value = "";
+                if(imageInputrRef.current) imageInputRef.current.value = "";
               }}
             >
               <X className="h-4 w-4" />

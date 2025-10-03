@@ -13,6 +13,7 @@ interface ChatMessageProps {
   message: {
     role: 'user' | 'bot';
     text: string;
+    categorizedText?: string;
     data?: ChatOutput['transactions'];
   };
 }
@@ -51,9 +52,16 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
         )}
       >
         <p className="text-sm">{message.text}</p>
+        
+        {isBot && message.categorizedText && (
+            <pre className="mt-3 text-sm font-mono bg-background p-3 rounded-md whitespace-pre-wrap">
+                {message.categorizedText}
+            </pre>
+        )}
+
         {isBot && message.data && message.data.length > 0 && (
           <div className="mt-4 p-2 bg-background rounded-lg">
-            <h4 className="text-sm font-semibold mb-2 text-foreground">Transaction Summary</h4>
+            <h4 className="text-sm font-semibold mb-2 text-foreground">Visual Interpretation</h4>
             <ChartContainer config={chartConfig} className="h-[200px] w-full">
               <BarChart data={message.data} layout="vertical" margin={{ left: 20 }}>
                 <CartesianGrid horizontal={false} />

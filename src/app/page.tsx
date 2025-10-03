@@ -8,7 +8,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { CheckCircle, ShieldCheck, ListChecks as ListChecksIcon, BellDot, BarChart3, Users, MapPin, Mail, Edit2, Search, Zap, Eye, Settings2, TrendingUp, Goal as GoalIcon, Briefcase, Building, MessageSquareQuote, Lightbulb, Sparkles, Rocket, Handshake, PackageCheck } from 'lucide-react';
 import Image from "next/image";
 
-const teamMembers = [
+type TeamMember = {
+  name: string;
+  dataAiHint: string;
+  imageUrl?: string;
+};
+
+const teamMembers: TeamMember[] = [
   { name: "Nimmagadda Yatheeswar", dataAiHint: "person portrait" },
   { name: "Nishanam Pranuthi Raj", dataAiHint: "person portrait" },
   { name: "Hrudhay", dataAiHint: "person portrait" },
@@ -222,7 +228,7 @@ export default function HomePage() {
 
           <h3 className="text-2xl sm:text-3xl font-bold font-headline text-center my-12 text-primary">Meet the Team</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8">
-            {teamMembers.map((member: any) => (
+            {teamMembers.map((member) => (
               <div key={member.name} className="group text-center">
                 <div className="relative w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-3 rounded-full overflow-hidden shadow-lg border-2 border-primary/20 transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl cursor-pointer">
                   {member.imageUrl ? (
@@ -317,6 +323,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-    
-    

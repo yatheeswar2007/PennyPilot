@@ -18,7 +18,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import type { Category } from '@/types';
 import type { LucideIcon } from 'lucide-react';
-import { Target, Utensils, Car, Home, ShoppingBag, Ticket, DollarSign } from 'lucide-react';
+import { Target } from 'lucide-react';
 
 
 interface CreateCategoryDialogProps {
@@ -42,27 +42,38 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
+const defaultValues: FormData = {
+  name: '',
+  icon: 'Target',
+  limit: 0,
+  limitType: 'monthly',
+  color: '',
+};
+
 export default function CreateCategoryDialog({ isOpen, onClose, onCategorySaved, existingCategory, icons }: CreateCategoryDialogProps) {
   const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      limitType: 'monthly',
+    defaultValues: existingCategory ? {
       ...existingCategory,
-      icon: typeof existingCategory?.icon === 'string' ? existingCategory.icon : 'Target',
-    }
+      icon: typeof existingCategory.icon === 'string' ? existingCategory.icon : 'Target',
+    } : defaultValues
   });
 
   useEffect(() => {
-    if (existingCategory) {
-      setValue('name', existingCategory.name);
-      setValue('icon', typeof existingCategory.icon === 'string' ? existingCategory.icon : 'Target');
-      setValue('limit', existingCategory.limit);
-      setValue('limitType', existingCategory.limitType);
-      setValue('color', existingCategory.color);
-    } else {
-      reset({ name: '', icon: 'Target', limit: 0, limitType: 'monthly', color: '' });
+    if (isOpen) {
+      if (existingCategory) {
+        reset({
+          name: existingCategory.name,
+          icon: typeof existingCategory.icon === 'string' ? existingCategory.icon : 'Target',
+          limit: existingCategory.limit,
+          limitType: existingCategory.limitType,
+          color: existingCategory.color,
+        });
+      } else {
+        reset(defaultValues);
+      }
     }
-  }, [existingCategory, setValue, reset]);
+  }, [existingCategory, isOpen, reset]);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     if (existingCategory) {
@@ -70,7 +81,6 @@ export default function CreateCategoryDialog({ isOpen, onClose, onCategorySaved,
     } else {
       onCategorySaved({ ...data, icon: data.icon as keyof typeof icons });
     }
-    reset();
     onClose();
   };
 
@@ -78,7 +88,7 @@ export default function CreateCategoryDialog({ isOpen, onClose, onCategorySaved,
   const IconPreview = icons[selectedIconName] || Target;
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => { if (!open) { reset(); onClose(); } }}>
+    <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{existingCategory ? 'Edit' : 'Create'} Category</DialogTitle>
@@ -142,7 +152,7 @@ export default function CreateCategoryDialog({ isOpen, onClose, onCategorySaved,
             </div>
           </div>
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => { reset(); onClose(); }}>Cancel</Button>
+            <Button type="button" variant="outline" onClick={onClose}>Cancel</Button>
             <Button type="submit">{existingCategory ? 'Save Changes' : 'Create Category'}</Button>
           </DialogFooter>
         </form>

@@ -32,7 +32,7 @@ const formSchema = z.object({
   ),
   limitType: z.enum(['monthly', 'yearly']),
   spent: z.preprocess(
-    (val) => val === '' ? undefined : parseFloat(String(val)), // Allow empty string for spent, treat as undefined
+    (val) => val === '' || val === undefined ? undefined : parseFloat(String(val)), // Allow empty string/undefined for spent
     z.number().min(0, { message: "Spent amount must be positive." }).optional()
   ),
 });

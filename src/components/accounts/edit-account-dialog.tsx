@@ -26,7 +26,7 @@ interface EditAccountDialogProps {
 }
 
 const formSchema = z.object({
-  name: z.string().min(2, { message: "Account name must be at least 2 characters." }), // Changed from accountName
+  name: z.string().min(2, { message: "Account name must be at least 2 characters." }),
   bankName: z.string().min(2, { message: "Bank name must be at least 2 characters." }),
   balance: z.preprocess(
     (val) => parseFloat(String(val)),
@@ -50,7 +50,7 @@ export default function EditAccountDialog({ isOpen, onClose, account, onAccountU
   useEffect(() => {
     if (account && isOpen) {
       reset({
-        name: account.name, // Changed from accountName
+        name: account.name,
         bankName: account.bankName,
         balance: account.balance,
       });
@@ -60,7 +60,7 @@ export default function EditAccountDialog({ isOpen, onClose, account, onAccountU
   const onSubmit: SubmitHandler<FormData> = (data) => {
     onAccountUpdated({
       ...account, // Keep id, accountNumber, currency
-      name: data.name, // Changed from accountName
+      name: data.name,
       bankName: data.bankName,
       balance: data.balance,
     });

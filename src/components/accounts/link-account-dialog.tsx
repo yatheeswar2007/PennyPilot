@@ -26,8 +26,8 @@ interface LinkAccountDialogProps {
 
 const formSchema = z.object({
   bankName: z.string().min(2, { message: "Bank name must be at least 2 characters." }),
-  name: z.string().min(2, { message: "Account name must be at least 2 characters." }), // Changed from accountName
-  accountNumber: z.string().min(2, { message: "Account number must be at least 2 characters." }), // Changed from last4
+  name: z.string().min(2, { message: "Account name must be at least 2 characters." }),
+  accountNumber: z.string().min(2, { message: "Account number must be at least 2 characters." }),
   balance: z.preprocess(
     (val) => parseFloat(String(val)),
     z.number().min(0, { message: "Balance must be a positive number." })
@@ -47,8 +47,8 @@ export default function LinkAccountDialog({ isOpen, onClose, onAccountLinked }: 
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     onAccountLinked({
-      name: data.name, // Changed from accountName
-      accountNumber: data.accountNumber, // Changed from last4
+      name: data.name,
+      accountNumber: data.accountNumber,
       balance: data.balance,
       currency: data.currency.toUpperCase(),
       bankName: data.bankName,

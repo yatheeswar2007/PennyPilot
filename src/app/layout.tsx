@@ -1,7 +1,8 @@
+
 import type { Metadata } from 'next';
 import './globals.css';
 import { AppLayout } from '@/components/layout/app-layout';
-import { Toaster } from "@/components/ui/toaster"; // Corrected import path
+import { Toaster } from "@/components/ui/toaster";
 import Chatbot from '@/components/chatbot/chatbot';
 
 
@@ -26,6 +27,7 @@ export default function RootLayout({
         <AppLayout>
           {children}
         </AppLayout>
+        <Chatbot />
         <Toaster />
       </body>
     </html>

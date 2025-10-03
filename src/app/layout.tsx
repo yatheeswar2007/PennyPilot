@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { AppLayout } from '@/components/layout/app-layout';
 import { Toaster } from "@/components/ui/toaster"; // Corrected import path
-import Chatbot from '@/components/chatbot/chatbot';
 
 export const metadata: Metadata = {
   title: 'PennyPilot Tracker',
@@ -25,7 +24,6 @@ export default function RootLayout({
         <AppLayout>
           {children}
         </AppLayout>
-        <Chatbot />
         <Toaster />
       </body>
     </html>

@@ -9,6 +9,7 @@ import type { SuggestBudgetOutput } from '@/ai/flows/suggest-budget';
 import { Lightbulb } from 'lucide-react';
 import SpendingCharts from '@/components/budgeting-tool/spending-charts';
 import type { CategorizedSpending } from '@/types';
+import Chatbot from '@/components/chatbot/chatbot';
 
 export default function AIBudgetingToolPage() {
   const [suggestions, setSuggestions] = React.useState<SuggestBudgetOutput | null>(null);
@@ -56,6 +57,7 @@ export default function AIBudgetingToolPage() {
       <CardDescription className="mb-6 max-w-3xl text-lg">
         Get a complete financial picture. Our AI will automatically categorize your raw transactions, 
         visualize your spending habits with interactive charts, and provide personalized budget recommendations to help you reach your goals.
+        Alternatively, use the AI assistant to analyze transaction screenshots!
       </CardDescription>
 
       <div className="grid gap-8 lg:grid-cols-5">
@@ -93,6 +95,7 @@ export default function AIBudgetingToolPage() {
           </Card>
         </div>
       </div>
+      <Chatbot />
     </div>
   );
 }

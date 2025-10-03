@@ -29,26 +29,10 @@ export interface Transaction {
   accountId: string;
 }
 
-export interface AISuggestion {
-  category: string;
-  suggestedLimit: number;
-  justification: string;
-}
-
-export interface AIOverspendingArea {
-  category: string;
-  explanation: string;
-}
-
 export interface NavItem {
   title: string;
   href: string;
   icon: LucideIcon;
   label?: string;
   disabled?: boolean;
-}
-
-export interface CategorizedSpending {
-  category: string;
-  amount: number;
 }

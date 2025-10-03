@@ -27,7 +27,7 @@ export default function SettingsPage() {
             </CardHeader>
             <CardContent className="space-y-4">
                <Avatar className="h-24 w-24 mx-auto mb-4">
-                <AvatarImage src="/logo-icon.svg" alt="PennyPilot User" />
+                <AvatarImage src="" alt="PennyPilot User" />
                 <AvatarFallback className="text-3xl">PP</AvatarFallback>
               </Avatar>
               <div>

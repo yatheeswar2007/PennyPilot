@@ -73,8 +73,8 @@ export default function HomePage() {
       {/* Sticky Navigation Bar */}
       <nav className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'bg-background/90 shadow-lg backdrop-blur-md' : 'bg-transparent'}`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
-          <Link href="/" className="flex items-center">
-             <Image src="/logo.svg" alt="PennyPilot Logo" width={160} height={40} />
+          <Link href="/" className="flex items-center text-2xl font-bold text-primary">
+             PennyPilot
           </Link>
           <div className="flex items-center">
             <div className="hidden md:flex space-x-4 mr-4">
@@ -91,7 +91,7 @@ export default function HomePage() {
                     <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary/10 hover:text-primary">Log In</Button>
                 </Link>
                 <Link href="/signup" passHref>
-                    <Button size="sm" className="bg-accent hover:bg-accent/90 text-accent-foreground">Sign Up</Button>
+                    <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground">Sign Up</Button>
                 </Link>
             </div>
             <div className="md:hidden"> {/* Basic mobile menu toggle - can be enhanced */}
@@ -107,10 +107,10 @@ export default function HomePage() {
       {/* Hero Section */}
       <section id="home" className="py-16 sm:py-24 bg-gradient-to-br from-primary/10 via-background to-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-           <div className="mb-8 inline-block">
-            <Image src="/logo.svg" alt="PennyPilot Logo" width={240} height={60} />
-          </div>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold font-headline text-primary mb-6">
+           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-headline text-primary mb-6">
+            PennyPilot
+          </h1>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-headline text-foreground/80 mb-6">
             Navigate Your Wallet. Master Your Budget.
           </h2>
           <p className="mt-4 text-lg sm:text-xl text-foreground/80 max-w-3xl mx-auto mb-10">
@@ -135,7 +135,7 @@ export default function HomePage() {
           </div>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/signup" passHref>
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 Sign up free in under a minute
               </Button>
             </Link>
@@ -159,7 +159,7 @@ export default function HomePage() {
               <Card key={feature.title} className="hover:shadow-xl transition-shadow duration-300 flex flex-col bg-card">
                 <CardHeader>
                   <div className="flex items-center mb-3">
-                    <Icon className="h-10 w-10 text-accent mr-4" />
+                    <Icon className="h-10 w-10 text-primary mr-4" />
                     <CardTitle className="text-xl text-primary">{feature.title}</CardTitle>
                   </div>
                 </CardHeader>
@@ -211,10 +211,10 @@ export default function HomePage() {
           <div className="mb-16">
             <h3 className="text-2xl font-semibold text-center mb-8 text-primary">Key Aspects We Focus On</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {keyAspects.map((aspect) => {
+              {keyAspects.map((aspect, index) => {
                 const Icon = aspect.icon;
                 return (
-                  <Card key={aspect.title} className="text-center p-6 hover:shadow-lg transition-shadow bg-card border-t-4 border-primary/50">
+                  <Card key={index} className="text-center p-6 hover:shadow-lg transition-shadow bg-card border-t-4 border-primary/50">
                     <div className="mx-auto flex items-center justify-center h-14 w-14 rounded-full bg-primary/10 mb-4 ring-4 ring-primary/20">
                        <Icon className={`h-7 w-7 ${aspect.color || 'text-primary'}`} />
                     </div>
@@ -255,20 +255,20 @@ export default function HomePage() {
       </section>
 
       {/* Get Started Today Section (CTA) */}
-      <section id="get-started-cta" className="py-16 sm:py-24 bg-accent text-accent-foreground">
+      <section id="get-started-cta" className="py-16 sm:py-24 bg-secondary">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold font-headline mb-6">Ready to transform how you handle money?</h2>
-          <p className="text-lg max-w-2xl mx-auto mb-8">
+          <h2 className="text-3xl sm:text-4xl font-bold font-headline mb-6 text-secondary-foreground">Ready to transform how you handle money?</h2>
+          <p className="text-lg max-w-2xl mx-auto mb-8 text-secondary-foreground/80">
             It takes less than a minute. No credit card required. All major Indian banks are supported. Customize categories and limits to match your personal goals.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/signup" passHref>
-                <Button size="lg" variant="outline" className="bg-accent-foreground text-accent hover:bg-accent-foreground/90 border-accent-foreground">
+                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
                 Create Your Free Account
                 </Button>
             </Link>
             <Link href="/login" passHref>
-                <Button size="lg" variant="outline" className="border-accent-foreground text-accent-foreground hover:bg-accent-foreground/10">
+                <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
                 Log In to Your Account
                 </Button>
             </Link>
@@ -286,17 +286,17 @@ export default function HomePage() {
                     <h3 className="text-2xl font-semibold text-primary mb-6">Contact Information</h3>
                     <div className="space-y-6">
                         <div className="flex items-start">
-                        <MapPin className="h-7 w-7 text-accent mr-4 mt-1 flex-shrink-0" />
+                        <MapPin className="h-7 w-7 text-primary mr-4 mt-1 flex-shrink-0" />
                         <div>
                             <h4 className="font-semibold text-foreground mb-1">Our Location:</h4>
                             <p className="text-foreground/80"></p>
                         </div>
                         </div>
                         <div className="flex items-start">
-                        <Mail className="h-7 w-7 text-accent mr-4 mt-1 flex-shrink-0" />
+                        <Mail className="h-7 w-7 text-primary mr-4 mt-1 flex-shrink-0" />
                         <div>
                             <h4 className="font-semibold text-foreground mb-1">Support Email:</h4>
-                            <a href="mailto:support@pennypilot.com" className="text-primary hover:underline hover:text-accent transition-colors">support@pennypilot.com</a>
+                            <a href="mailto:support@pennypilot.com" className="text-primary hover:underline hover:text-accent-foreground transition-colors">support@pennypilot.com</a>
                         </div>
                         </div>
                     </div>

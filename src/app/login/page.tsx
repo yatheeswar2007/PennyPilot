@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,8 +34,8 @@ export default function LoginPage() {
 
   return (
     <div className="container mx-auto py-12 flex flex-col justify-center items-center min-h-screen bg-background">
-       <Link href="/" className="mb-8">
-          <Image src="/logo.svg" alt="PennyPilot Logo" width={200} height={50} />
+       <Link href="/" className="mb-8 font-bold text-3xl text-primary">
+          PennyPilot
       </Link>
       <Card className="w-full max-w-md shadow-xl bg-card">
         <CardHeader className="text-center">
@@ -79,7 +78,7 @@ export default function LoginPage() {
           </form>
           <p className="text-center text-sm text-muted-foreground">
             Don&apos;t have an account?{" "}
-            <Link href="/signup" className="font-medium text-accent hover:underline">
+            <Link href="/signup" className="font-medium text-accent-foreground hover:underline">
               Sign Up
             </Link>
           </p>

@@ -9,11 +9,6 @@ export const navItems: NavItem[] = [
     icon: LayoutDashboard, // Changed to LayoutDashboard for an "app home" feel
   },
   {
-    title: 'AI Budgeting',
-    href: '/budgeting-tool',
-    icon: Lightbulb,
-  },
-  {
     title: 'Accounts',
     href: '/accounts',
     icon: Landmark,
